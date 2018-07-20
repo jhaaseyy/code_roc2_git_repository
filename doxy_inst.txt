@@ -1,0 +1,12 @@
+Doxygen Instructions:
+
+1. Open terminal and install doxygen
+	In LINUX: sudo apt install doxygen
+2. Make configuration file
+	This will control how the doxygen layout look
+	Many versions, can copy one from the internet
+	Save as dox.conf 
+3. Cd to the directory where you want the doxygen files to be
+	$ cd /home
+3. Run doxygen and create docs
+	$ doxygen dox.conf
