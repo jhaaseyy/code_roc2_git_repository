@@ -1,0 +1,20 @@
+digraph "RocInit"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node47 [label="RocInit",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node47 -> Node48 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node48 [label="CmdLineHandler",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$roc2_8c.html#a5dbf303fd2c465b1e724a247623fdbd2",tooltip="Parses command line arguments. "];
+  Node47 -> Node49 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node49 [label="CreateDayDirectory",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$roc2_8c.html#a0eaf55c523b081609cd85dd6eb04682b"];
+  Node47 -> Node50 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node50 [label="LoadConfigFileSettings",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$roc2_8c.html#a8ed0e63e6cf78544f92b023037e3e7b8",tooltip="Reads the program configuration file. "];
+  Node47 -> Node51 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node51 [label="OpenLogFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$roc2_8c.html#af8b73dc85a9b8da6978eac659ec8531b"];
+  Node47 -> Node52 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node52 [label="SerialPortInit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$roc2_8c.html#aa1c32480aaf288a615cc7330e9cb6072"];
+  Node47 -> Node53 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node53 [label="Usage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$roc2_8c.html#a40185ea52d16cecaafae70740e90af29",tooltip="Prints the usage summary showing valid command line options. "];
+}

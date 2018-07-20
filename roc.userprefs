@@ -1,0 +1,16 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="roc2.c">
+    <Files>
+      <File FileName="roc2.h" Line="101" Column="19" />
+      <File FileName="roc2.c" Line="162" Column="1" />
+      <File FileName="../gps.conf" Line="1" Column="1" />
+      <File FileName="../roc.conf" Line="11" Column="22" />
+      <File FileName="../zephyr.conf" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
