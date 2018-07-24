@@ -13,10 +13,10 @@ $ cd /root/roc/roc
 $ make
 ```
 ## Contributors
-Principal Researcher: Dr.Jennifer Haase
-Post-Doc: Bing Cao
-Primary Engineer: Dave Jabson
-Research Assistant: Steven Liang, Jimmy Lozano
+* Principal Researcher: Dr.Jennifer Haase
+* Post-Doc: Bing Cao
+* Primary Engineer: Dave Jabson
+* Research Assistant: Steven Liang, Jimmy Lozano
 
 ## License
 See license.md for details
