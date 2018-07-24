@@ -13,8 +13,10 @@ $ cd /root/roc/roc
 $ make
 ```
 ## Contributors
-
-For project inquiries, contact principal investigator Dr.Haase at jhaase@ucsd.edu
+Principal Researcher: Dr.Jennifer Haase
+Post-Doc: Bing Cao
+Primary Engineer: Dave Jabson
+Research Assistant: Steven Liang, Jimmy Lozano
 
 ## License
 See license.md for details
