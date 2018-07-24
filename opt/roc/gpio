@@ -1,0 +1,73 @@
+#!/bin/bash
+#
+# This script is a simple interface to set the digital gpio
+# lines on the TS-7680 as configured for ROC2.
+#
+# Syntax is 'gpio <signal> <state>'
+#
+# Where <signal> is one of the following:
+#  gps_power
+#  gps_reset
+#  gps_pow_tog
+#  safe
+#  led0
+#  led1
+#  gpio0
+#
+# and <state> is one of the following:
+#
+#  0
+#  lo
+#  LO
+#  low
+#  LOW
+#  1
+#  hi
+#  HI
+#  high
+#  HIGH
+#
+
+case $1 in
+        gps_power)
+                reg=0xB
+                ;;
+        gps_reset)
+                reg=0x8
+                ;;
+        gps_pow_tog)
+                reg=0xA
+                ;;
+        safe)
+                reg=0x1
+                ;;
+        led0)
+                reg=0x3
+                ;;
+        led1)
+                reg=0x5
+                ;;
+        gpio0)
+                reg=0x9
+                ;;
+        *)
+                echo "Unknown GPIO name"
+                exit
+                ;;
+esac
+
+case $2 in
+        0|lo|low|LO|LOW)
+                echo "Set line $1 to low"
+                tshwctl -m $reg --poke 0x1
+                ;;
+        1|hi|high|HI|HIGH)
+                echo "Set line $1 to high"
+                tshwctl -m $reg --poke 0x3
+                ;;
+        *)
+                echo "Invalid state specified"
+                ;;
+esac
+
+

@@ -1,0 +1,15 @@
+TARGETS = rsyslog nmbd hostapd samba-ad-dc motd bootlogs killprocs openbsd-inetd roc_uart roc_gpio smbd dbus roc winbind single ssh bluetooth cron rc.local rmnologin
+INTERACTIVE =
+openbsd-inetd: rsyslog
+roc_uart: rsyslog
+roc_gpio: rsyslog
+smbd: nmbd
+dbus: rsyslog
+roc: rsyslog
+winbind: rsyslog
+single: killprocs motd bootlogs
+ssh: rsyslog
+bluetooth: rsyslog dbus
+cron: rsyslog winbind
+rc.local: openbsd-inetd rsyslog roc_uart roc_gpio nmbd smbd bluetooth dbus roc hostapd samba-ad-dc winbind motd bootlogs ssh cron
+rmnologin: openbsd-inetd rsyslog roc_uart roc_gpio nmbd smbd bluetooth dbus roc hostapd samba-ad-dc winbind motd bootlogs ssh cron

@@ -1,0 +1,79 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          initdevices
+# Required-Start:    $local_fs $network $syslog
+# Required-Stop:     $local_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       Configures GPS HW and turns of ethernet
+### END INIT INFO
+
+
+# See note in reset script file about .sh naming conventions
+
+ . /etc/init.d/environ.sh
+
+if test "$OCCULT_DEPLOY" = "TRUE" ; then
+	echo "======================================================"
+	echo
+	echo "Disabling Ethernet eth0 for power savings"
+	echo
+	turn_ethernet off
+fi
+
+echo "======================================================"
+echo
+#echo "Configuring Unit 2 IRQ to IRQ 5 on  PC/104 channel"
+#echo
+#if setirq /dev/tts/3 22 ; then
+#	echo "                        Configuration succeeded"
+#else
+#	echo "                        Configuration FAILED"
+#	touch /failed
+#fi
+
+if test ${RECEIVER_1:=ENABLED} = "ENABLED" ; then
+	if gpsInit 1 ; then
+		if gpsInit 1 reset ; then
+			msg="GPS receiver 1 successfully initialized and reset"
+			status -r serial 1
+		else 
+			msg="FAILED to reset GPS unit 1"
+			touch /failed
+		fi
+	else
+		msg="FAILED to initialize GPS unit 1"
+	fi
+	
+else 
+	msg="Disabling Receiver 1"
+	changeConfig -d 1 -P 0 $DEFAULT_CONFIG_STATE_FILE
+	changeConfig -d 1 -P 0
+fi
+echo "======================================================"
+echo
+echo $msg
+echo
+	
+if test ${RECEIVER_2:=ENABLED} = "ENABLED" ; then
+	if gpsInit 2 ; then
+		if gpsInit 2 reset ; then
+			msg="GPS receiver 2 successfully initialized and reset"
+			status -r serial 2
+		else
+			msg="FAILED to reset GPS unit 2"
+			touch /failed
+		fi
+	else
+		msg="FAILED to initialize GPS unit 2"
+	fi
+		
+else 
+	msg="Disabling Receiver 2"
+	changeConfig -d 2 -P 0 $DEFAULT_CONFIG_STATE_FILE
+	changeConfig -d 2 -P 0
+fi
+echo "======================================================"
+echo
+echo $msg
+echo

@@ -1,0 +1,19 @@
+#!/bin/bash
+#/etc/init.d/ups-monitor
+
+case "$1" in
+    start)
+        echo "STARTING UPS-MONITOR!"
+        ;;
+    poweroff)
+        echo "RAN UPS-MONITOR!"
+        while true; do
+            power=$(cat /sys/class/gpio/gpio73/value)
+            if [ $power -eq 0 ]; then
+                reboot -f
+            fi
+        done
+        ;;
+esac
+exit 0
+

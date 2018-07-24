@@ -1,0 +1,4 @@
+sso,Stream1,COM3,MeasEpoch+PVTGeodetic+SatVisibility,msec100
+sem,PVT,5
+sem,Tracking,-15
+seth,off

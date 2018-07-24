@@ -1,0 +1,43 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          archive
+# Required-Start:    $local_fs $network $syslog
+# Required-Stop:     $local_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       Starts data processing programs
+### END INIT INFO
+
+
+# see note in reset script file for note on .sh file nameing convention
+
+. /etc/init.d/environ.sh
+
+# if the occult directory is not avaliable, the forget it 
+
+if test -d "$OCCULT_HOME/occult" ; then
+
+	if test "$ARCHIVE_DIRECTORY" ; then
+
+		echo
+		echo Running archive on unprocessed dataset
+		echo 
+
+		if cd $DATASET_LOCATION ; then
+			for i in $( ls ) ; do
+				archive $i >$ARCHIVE_DIRECTORY/$i
+			done
+		fi
+	else
+		echo
+		echo "No archive directory specified for archiving"
+		echo
+	fi
+
+else 
+
+	echo
+	echo Occultation home directories not available, not processing archive
+	echo
+
+fi

@@ -1,0 +1,25 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          mount_data
+# Required-Start:    $local_fs $network $syslog
+# Required-Stop:     $local_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       Mounts data directories
+### END INIT INFO
+
+
+if test ${OCCULT_HOME:=UNDEFINED} = "UNDEFINED" ; then
+	. /etc/init.d/environ.sh
+fi
+
+#if test "${OCCULT_DEPLOY:=FALSE}" = "TRUE" ; then
+# for deployment, the directories are real mount points
+#	mount -t vfat /dev/scsi/host0/bus0/target0/lun0/part1 $OCCULT_HOME/occult
+#	mount -t vfat /dev/scsi/host0/bus0/target0/lun0/part2 $OCCULT_HOME/archive
+#else
+# for testing, they are plain director on one file system
+# specify ext2 so it won't try real hard to mount deployment partition
+# on switchover
+#	mount -t ext2 /dev/scsi/host0/bus0/target0/lun0/part1 $OCCULT_HOME
+#fi

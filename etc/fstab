@@ -1,0 +1,4 @@
+# UNCONFIGURED FSTAB FOR BASE SYSTEM
+
+/dev/mmcblk0    /data   vfat    defaults 0 0
+

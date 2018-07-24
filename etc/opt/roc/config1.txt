@@ -1,0 +1,4 @@
+sem,PVT,15
+scs,COM3,baud460800,bits8,No,bit1,none
+sso,Stream1,COM3,MeasEpoch+PVTGeodetic+SatVisibility,sec5
+sem,Tracking,-5

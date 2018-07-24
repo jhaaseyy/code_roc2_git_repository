@@ -1,0 +1,42 @@
+#/bin/sh
+### BEGIN INIT INFO
+# Provides:          occult
+# Required-Start:    $local_fs $network $syslog
+# Required-Stop:     $local_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       Starts occult data collection software
+### END INIT INFO
+
+
+# this script is linked into the run level at deployment mode
+# the coordinate scripts recognizes the deployment mode environment variable
+# OCCULT_DEPLOY and forks as a daemon
+#
+# if this is linked into the run level during testing, it should start,
+# but the boot process will not finish until exit. so we prevent that
+#
+
+# See note in reset scriopt file about .sh file naming convention
+
+# if essetial boot step fails, /failed exists, let the system come up to fix
+
+if test -e /failed ; then
+	rm -f /failed
+	exit 0 
+fi
+
+ . /etc/init.d/environ.sh
+
+if test "${OCCULT_DEPLOY:=FALSE}" = "TRUE" ; then
+	echo
+	echo Starting up the occultation system modules
+	echo
+
+#	mytty
+	coordinate
+	
+	sh /etc/init.d/watch &
+	
+fi
+

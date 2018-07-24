@@ -1,0 +1,91 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          reset
+# Required-Start:    $local_fs $network $syslog
+# Required-Stop:     $local_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       ???
+### END INIT INFO
+
+
+# The Technologics startup does not source run level files with the .sh
+# extension. The environment variables must be re-defined in each major
+# script, but we still differentiate their role by naming them with .sh
+
+. /etc/init.d/environ.sh
+
+if test -d "$OCCULT_HOME/occult" ; then
+
+	if test ! -e $DEFAULT_CONFIG_STATE_FILE ; then
+		echo
+		echo ========================= Warning =================================
+		echo
+		echo                  NO DEFAULT CONFIGURATION FOUND
+		echo
+		echo ===================================================================
+		sleep 60
+	else
+		if test ! -e $CONFIG_STATE_FILE ; then
+			cp -f $DEFAULT_CONFIG_STATE_FILE $CONFIG_STATE_FILE
+		fi
+	fi
+	
+	if test ! -e $CONFIG_STATE_FILE ; then
+		touch /failed
+	fi
+
+	# if a reset has been issued, delete queued files
+	# and recopy installed default config file
+	
+	if test -e /reset ; then
+	
+	echo
+	echo Processing reset request
+	echo
+	
+		rm -f /reset
+	
+		if test -d "$BASE_TRANSMISSION_DIRECTORY" ; then
+	
+			rm -f $BASE_TRANSMISSION_DIRECTORY/1_*
+			rm -f $BASE_TRANSMISSION_DIRECTORY/2_*
+		fi
+	
+		if test -e "$DEFAULT_CONFIG_STATE_FILE" ; then
+	
+			cp -f $DEFAULT_CONFIG_STATE_FILE $CONFIG_STATE_FILE
+	
+		fi
+	
+	fi
+	
+	echo 
+	echo  "Clearing old dataset from processing area"
+	echo
+	
+	# Clean up $DATASET LOCATION (archiving should be done BEFORE this script),
+	# Event info has been lost to be able to use it in arbitrations.
+	# this assumes two receivers only
+	
+	if test -d "$DATASET_LOCATION" ; then
+		rm -f $DATASET_LOCATION/1_*
+		rm -f $DATASET_LOCATION/2_*
+	fi
+	
+# Also clean up prep area, it is only 
+# populated briefly, so it is unlikely
+# that there will ever be anything in it
+
+	if test -d "$PREP_TRANSMISSION_DIRECTORY" ; then
+		rm -f $PREP_TRANSMISSION_DIRECTORY/1_*
+		rm -f $PREP_TRANSMISSION_DIRECTORY/2_*
+	fi
+	
+else
+
+	echo 
+	echo Occultion home directories not available, not processing reset
+	echo
+
+fi

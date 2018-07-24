@@ -1,0 +1,11 @@
+[Unit]
+Description=TS Startup
+
+[Service]
+Type=idle
+ExecStart=/bin/bash /usr/local/bin/tsstartupscript
+
+[Install]
+WantedBy=multi-user.target
+
+

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# watchdog of coordinate
+# if it fails then  
+# we must  take action
+
+while pidof coordinate >/dev/null ; do
+	sleep 60
+done
+
+# it may be we are just shutting down 
+# but if arbitrator is still running
+# it is definitely a problem
+
+if pidof arbitrator >/dev/null ; then
+	reboot
+fi
