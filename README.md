@@ -12,6 +12,14 @@ Go to the make folder and compile using make
 $ cd /root/roc/roc
 $ make
 ```
+## Creating a new branch
+Click on "clone or download" button then copy the https: link
+Put the code in a test folder on your local computer, call it temp
+```
+$ cd temp
+$ git clone https://github.com/jhaaseyy/code_roc2_git_repository.git
+```
+
 ## Contributors
 * Principal Researcher: Dr.Jennifer Haase
 * Post-Doc: Bing Cao
