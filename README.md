@@ -19,4 +19,4 @@ $ make
 * Research Assistant: Steven Liang, Jimmy Lozano
 
 ## License
-See license.md for details
+See [LICENSE.md](https://github.com/jhaaseyy/code_roc2_git_repository/LICENSE) for details
