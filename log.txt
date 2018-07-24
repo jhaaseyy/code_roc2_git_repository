@@ -1,10 +1,14 @@
-
+////
+This folder contains no software changes, it is just a snapshot of the latest
+version to be used as the basis for further updates.
+////
+24-Jul-2018
+-----------
+Changes:
+-updated github with latest version (22-Jul-2018)
 
 17-Jul-2018
 -----------
-
-This folder contains no software changes, it is just a snapshot of the latest
-version to be used as the basis for further updates.
 
 Fixed:
 
