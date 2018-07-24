@@ -7,12 +7,12 @@ Strateole2 is a NSF funded project that collects GPS data aboard a weather ballo
 
 Download a copy of the folders here, including the makefile into your linux computer. We recommend placing this at the root directory.
 ```
-cd /
+$ cd /
 ```
 Go to the make folder and compile using make
 ```
-cd /root/roc/roc
-make
+$ cd /root/roc/roc
+$ make
 ```
 
 ## Contact
