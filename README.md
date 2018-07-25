@@ -35,7 +35,7 @@ $ git pull
 ```
 2. Always start a new branch and avoid tampering with the master branch. Use the conventional naming convention "roc2.x_code_yyyymmdd_vw". This helps tracking of version numbers.
 ```
-$ git branch roc2.2_code_yyyymmdd_vw
+$ git branch roc2.x_code_yyyymmdd_vw
 ```
 3. You can check all the existing branches
 ```
@@ -43,7 +43,7 @@ $ git branch
 ```
 4. To switch to the new branch and check
 ```
-$ git checkout roc2.2_code_20180722_026
+$ git checkout roc2.x_code_yyyymmdd_vw
 $ git branch
 ```
 5. Do what you need to do to edit the codes or add new files.. etc
