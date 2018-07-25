@@ -35,7 +35,7 @@ $ git pull
 ```
 2. Always start a new branch and avoid tampering with the master branch. Use the conventional naming convention "roc2.x_code_yyyymmdd_vw". This helps tracking of version numbers.
 ```
-$ git branch roc2.2_code_20180722_026
+$ git branch roc2.2_code_yyyymmdd_vw
 ```
 3. You can check all the existing branches
 ```
@@ -59,7 +59,7 @@ $ git push --set-upstream origin roc2.2_code_20180722_026 //This pushes the comm
 
 ## Installation on Hardware
 
-Download a copy of the folders here, including the makefile into your linux computer. We recommend placing this at the root directory.
+Download a copy of the folders here, including the makefile into the ROC linux computer. We recommend placing this at the root directory.
 ```
 $ cd /
 ```
