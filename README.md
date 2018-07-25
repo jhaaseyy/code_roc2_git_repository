@@ -4,7 +4,7 @@ Strateole2 is a NSF funded project that collects GPS data aboard a weather ballo
 
 ## Getting Started
 
-### First Time Git Users
+### First Time Git Users: Configure your computer for GIT
 1. Open Terminal and Install Git
 ```
 $ sudo apt-get install git
@@ -22,12 +22,41 @@ $ cd /directory/folder
 ```
 $ git clone https://github.com/jhaaseyy/code_roc2_git_repository.git
 ```
-5. Now you have a complete copy of the ROC2 repository on your local machine
+5. Now you have a complete copy of the ROC2 repository on your local machine. You may list all the items.
+```
+$ ls
+```
 
+### Typical Workflow and Common Git Commands
+1. At the start of each day or work session, always do a git pull to get the latest version of the repo. Remember to always cd into your Git folder.
+```
+$ cd /directory/folder
+$ git pull
+```
+2. Always start a new branch and avoid tampering with the master branch. Use the conventional naming convention "roc2.x_code_yyyymmdd_vw". This helps tracking of version numbers.
+```
+$ git branch roc2.2_code_20180722_026
+```
+3. You can check all the existing branches
+```
+$ git branch
+```
+4. To switch to the new branch and check
+```
+$ git checkout roc2.2_code_20180722_026
+$ git branch
+```
+5. Do what you need to do to edit the codes or add new files.. etc
+6. When you're ready to commit the changes and push the branch them up to the Github repo
+```
+$ git add -A //This adds all the changes 
+$ git commit -m "comments here" //This commits the changes with comment
+$ git push --set-upstream origin roc2.2_code_20180722_026 //This pushes the commit onto the repo
+```
+7. On Github, do a pull request and comment your changes
+8. An authorized collaborator or admin will review the changes and merge the branch into the main branch
 
-### Typical Workflow
-
-
+## Installation on Hardware
 
 Download a copy of the folders here, including the makefile into your linux computer. We recommend placing this at the root directory.
 ```
@@ -37,13 +66,6 @@ Go to the make folder and compile using make
 ```
 $ cd /root/roc/roc
 $ make
-```
-## Creating a new branch
-Click on "clone or download" button then copy the https: link
-Put the code in a test folder on your local computer, call it temp
-```
-$ cd temp
-$ git clone https://github.com/jhaaseyy/code_roc2_git_repository.git
 ```
 
 ## Contributors
