@@ -31,6 +31,11 @@ $ ls
 1. At the start of each day or work session, always do a git pull to get the latest version of the repo. Remember to always cd into your Git folder.
 ```
 $ cd /directory/folder
+example:
+$ cd /Users/jhaase/Dropbox/work/strateole2_private/docs_system/roc_software_design/code_roc2/temp
+if you need to ...
+$ git clone https://github.com/jhaaseyy/code_roc2_git_repository.git
+$ cd code_roc2_git_repository
 $ git pull
 ```
 2. Always start a new branch and avoid tampering with the master branch. Use the conventional naming convention "roc2.x_code_yyyymmdd_vw". This helps tracking of version numbers.
