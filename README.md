@@ -47,6 +47,7 @@ $ git checkout roc2.2_code_20180722_026
 $ git branch
 ```
 5. Do what you need to do to edit the codes or add new files.. etc
+   Note: Plan ahead with team and avoid changing same part of the codes simultaneously, or there will be merging conflicts
 6. When you're ready to commit the changes and push the branch them up to the Github repo
 ```
 $ git add -A //This adds all the changes 
