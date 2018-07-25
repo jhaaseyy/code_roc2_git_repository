@@ -28,6 +28,7 @@ $ ls
 ```
 
 ### Typical Workflow and Common Git Commands
+Modify this to include the procedure for choosing the branch, provide instructions for how to do this here.
 1. At the start of each day or work session, always do a git pull to get the latest version of the repo. Remember to always cd into your Git folder.
 ```
 $ cd /directory/folder
