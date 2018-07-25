@@ -3,6 +3,32 @@ This package contains the C codes for the ROC and Zephyr modules for the Strateo
 Strateole2 is a NSF funded project that collects GPS data aboard a weather balloon to study the atmosphere, known as radio occultation (ROC)
 
 ## Getting Started
+
+### First Time Git Users
+1. Open Terminal and Install Git
+```
+$ sudo apt-get install git
+```
+2. Create Git user profile
+```
+$ git config --global user.name "yourusername"
+$ git config --global user.email "user@gmail.com"
+```
+3. Head to the file directory you want the Git files to be downloaded to
+```
+$ cd /directory/folder
+```
+4. Clone the Github Repository into the folder
+```
+$ git clone https://github.com/jhaaseyy/code_roc2_git_repository.git
+```
+5. Now you have a complete copy of the ROC2 repository on your local machine
+
+
+### Typical Workflow
+
+
+
 Download a copy of the folders here, including the makefile into your linux computer. We recommend placing this at the root directory.
 ```
 $ cd /
