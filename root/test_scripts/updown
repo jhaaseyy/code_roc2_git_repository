@@ -1,0 +1,11 @@
+echo "" >> $outfile
+echo "----------------------" >> $outfile
+echo ifdown wlan0 >> $outfile
+ifdown wlan0 >&  tmp
+cat tmp >> $outfile
+
+echo "" >> $outfile
+echo "----------------------" >> $outfile
+echo ifup wlan0 >> $outfile
+ifup wlan0 >&  tmp
+cat tmp >> $outfile

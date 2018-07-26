@@ -1,4 +1,4 @@
-﻿/// \copyright 2018 David Jabson, Brainstorm Engineering
+﻿/// \copyright 2017 David Jabson, Brainstorm Engineering
 ///
 /// \file zephyr.c
 /// \brief ROC2 Zephyr Interface Module
@@ -55,19 +55,16 @@ int main (int argc, char *argv[])
 	struct pollfd fds[1];
 
 	err = ZephyrInit(argc, argv);
-//	led(RED);
 	sendIMRatPower = 1;
 	if(err<0)
 	{
 		fprintf(stderr, "%s: Initialization error %d. Exiting\r\n",MODULE_NAME,err);
-		if(hwversion>2) led(RED);
 	}
 	else 
 	{
 		printf("SWVersion = %s\r\nSWDate = %s\r\n",SWVersion,SWDate);
 		printf("%s: Module started.\r\n",MODULE_NAME);
 //		write(zephyr.fp, "ROC online\r\n", 12);
-		if(hwversion>2) led(GREEN);
 	}
 	
 	term=zephyr.term[strlen(zephyr.term)-1];
@@ -152,6 +149,7 @@ int main (int argc, char *argv[])
 //			nextfile.tv_sec+=file_len;
 //			NewFile();
 //		}
+//		usleep(2000000);		// sleep for 2s
 		usleep(200000);		// sleep for 0.2s
 		
 //		if(time(NULL) > ackTimeout) waitingAck=0;
@@ -161,38 +159,21 @@ int main (int argc, char *argv[])
 			case FL:		// Flight mode. Check for data files to offload
 		//	    if (verbose) printf("%s: FL Set Safe Output to Low\r\n", MODULE_NAME);
 				sendIMRatPower = 0;
-				switch(hwversion)
-				{
-					case 3:
-						set_safe(OFF);
-						break;
-					default:
-						system("echo \"0\"   > /sys/class/gpio/gpio193/value");			// Set SAFE digital output to lo
-						system("echo \"1\"   > /sys/class/gpio/gpio233/value");			// Set 5V On
-						break;
-				}
+				system("echo \"0\"   > /sys/class/gpio/gpio193/value");			// Set SAFE digital output to lo
+				system("echo \"1\"   > /sys/class/gpio/gpio233/value");			// Set 5V On
 				if(modeSwitch)	// coming out of low power mode, reset GPS
 				{
 					modeSwitch=0;
 // Sepentrio Wakeup
 					if (wakeUpFlag) {
 						wakeUpFlag = 0;
-						switch(hwversion)
-						{
-							case 3:
-								if (verbose) printf("%s: Entering FL mode. GPS power on.\r\n", MODULE_NAME);
-								gps_power(ON);
-								break;
-							default:
-								if (verbose) printf("%s: Toggle Wakeup to Septentrio - Flight Mode\r\n", MODULE_NAME);
-								system("echo \"0\"   > /sys/class/gpio/gpio202/value");			// Set value to low
-								usleep(SEPTENTRIOTOGLNG);	// 300 msecs
-								system("echo \"1\"   > /sys/class/gpio/gpio202/value");			// Set value to high
-								lowPowerCheckWait = 16;
-								lowPowerCheck = LOWPOWERCHECK;
-								gotGPSChars = 0;
-								break;
-						}
+						if (verbose) printf("%s: Toggle Wakeup to Septentrio - Flight Mode\r\n", MODULE_NAME);
+						system("echo \"0\"   > /sys/class/gpio/gpio202/value");			// Set value to low
+						usleep(SEPTENTRIOTOGLNG);	// 300 msecs
+						system("echo \"1\"   > /sys/class/gpio/gpio202/value");			// Set value to high
+						lowPowerCheckWait = 16;
+						lowPowerCheck = LOWPOWERCHECK;
+						gotGPSChars = 0;
 					}
 				}
 
@@ -221,35 +202,18 @@ int main (int argc, char *argv[])
 				if (modeSwitch) {
 					modeSwitch = 0;
 					if (wakeUpFlag && poweroffgps) {
-						switch(hwversion)
-						{
-							case 3:
-//								if (verbose) printf("%s: Entering SB mode. GPS power off.\r\n", MODULE_NAME);
-//								gps_power(OFF);
-								break;
-							default:
-								if (verbose) printf("%s: Toggle Wakeup to Septentrio - Flight Mode\r\n", MODULE_NAME);
-								system("echo \"0\"   > /sys/class/gpio/gpio202/value");			// Set value to low
-								usleep(SEPTENTRIOTOGLNG);	// 300 msecs
-								system("echo \"1\"   > /sys/class/gpio/gpio202/value");			// Set value to high
-								break;
-						}
+						if (verbose) printf("%s: Toggle Wakeup to Septentrio - Flight Mode\r\n", MODULE_NAME);
+						system("echo \"0\"   > /sys/class/gpio/gpio202/value");			// Set value to low
+						usleep(SEPTENTRIOTOGLNG);	// 300 msecs
+						system("echo \"1\"   > /sys/class/gpio/gpio202/value");			// Set value to high
 						wakeUpFlag = 0;
 						poweroffgps = 0;
 						}
 					nextImr = time(NULL)+5;
 				}
 		//	    if (verbose) printf("%s: SB Set Safe Output to Low\r\n", MODULE_NAME);
-				switch(hwversion)
-				{
-					case 3:
-						set_safe(OFF);
-						break;
-					default:
-						system("echo \"0\"   > /sys/class/gpio/gpio193/value");			// Set SAFE digital output to lo
-						system("echo \"1\"   > /sys/class/gpio/gpio233/value");			// Set 5V On
-						break;
-				}
+				system("echo \"0\"   > /sys/class/gpio/gpio193/value");			// Set SAFE digital output to lo
+				system("echo \"1\"   > /sys/class/gpio/gpio233/value");			// Set 5V On
 				if(time(NULL) > nextImr)
 				{
 					if (sendIMRatPower) {
@@ -293,35 +257,18 @@ int main (int argc, char *argv[])
 
 			case LP:		// Low power mode. Put GPS in standby.
 		//	    if (verbose) printf("%s: LP Set Safe Output to Low\r\n", MODULE_NAME);
-				switch(hwversion)
-				{
-					case 3:
-						set_safe(OFF);
-						break;
-					default:
-						system("echo \"0\"   > /sys/class/gpio/gpio193/value");			// Set SAFE digital output to lo
-						system("echo \"0\"   > /sys/class/gpio/gpio233/value");			// Set 5V off
-						break;
-				}
+				system("echo \"0\"   > /sys/class/gpio/gpio193/value");			// Set SAFE digital output to lo
+				system("echo \"0\"   > /sys/class/gpio/gpio233/value");			// Set 5V off
 				if(modeSwitch)
 				{
 					modeSwitch=0;
 //					system("echo \"exePowerMode StandBy\" > /dev/ttyS3");		// Ugly hack for now (use this one for VM testing)
 //					if (verbose) printf("%s: Send Low Power Command to Septentrio\r\n", MODULE_NAME);
 //					system("echo \"exePowerMode, StandBy\" > /dev/ttyAPP2");		// Ugly hack for now (use this one for flight HW)
-					switch(hwversion)
-					{
-						case 3:
-							if (verbose) printf("%s: Entering LP mode. GPS off.\r\n", MODULE_NAME);
-							gps_power(OFF);
-							break;
-						default:
-							if (verbose) printf("%s: Toggle Power Down to Septentrio - Flight Mode\r\n", MODULE_NAME);
-							system("echo \"0\"   > /sys/class/gpio/gpio202/value");			// Set value to low
-							usleep(SEPTENTRIOTOGLNG);	// 300 msecs
-							system("echo \"1\"   > /sys/class/gpio/gpio202/value");			// Set value to high
-							break;
-					}
+					if (verbose) printf("%s: Toggle Power Down to Septentrio - Flight Mode\r\n", MODULE_NAME);
+					system("echo \"0\"   > /sys/class/gpio/gpio202/value");			// Set value to low
+					usleep(SEPTENTRIOTOGLNG);	// 300 msecs
+					system("echo \"1\"   > /sys/class/gpio/gpio202/value");			// Set value to high
 					lowPowerCheckWait = 5;
 					gotGPSChars = 0;
 					poweroffgps = 1;
@@ -354,7 +301,7 @@ int main (int argc, char *argv[])
 				break;
 
 			case SA:		// Safety mode.
-				if(hwversion<3) system("echo \"1\"   > /sys/class/gpio/gpio233/value");			// Set 5V On
+				system("echo \"1\"   > /sys/class/gpio/gpio233/value");			// Set 5V On
 				if (modeSwitch) {
 					nextS = time(NULL) + 60;
 					safeAck = 0;
@@ -380,15 +327,7 @@ int main (int argc, char *argv[])
 				}
 
 //	    		if (verbose) printf("%s: SA Set Safe Output to High\r\n", MODULE_NAME);
-				switch(hwversion)
-				{
-					case 3:
-						set_safe(ON);
-						break;
-					default:
-						system("echo \"1\"   > /sys/class/gpio/gpio193/value");			// Set SAFE digital output to high
-						break;
-				}
+				system("echo \"1\"   > /sys/class/gpio/gpio193/value");			// Set SAFE digital output to high
 //				nextImr = time(NULL) + 10000000;
 
 				if ((nextFile = GetNextFile()) && !waitingAck)
@@ -834,42 +773,34 @@ int ZephyrInit(int argc, char *argv[])
 		fprintf(stderr, "%s: Attempt to open named pipe returned %d\r\n", MODULE_NAME, errno);
 	}
 	
-	switch(hwversion)
-	{
-		case 3:
-			gps_power(ON);	// Note: this also turns on power to LED's
-			break;
-		default:
-			if (verbose) printf("%s: Init: Set Safe Export\r\n", MODULE_NAME);
-			system("echo \"193\" > /sys/class/gpio/export");				// Prepare SAFE digital output
-			if (verbose) printf("%s: Init: Set Safe Direction\r\n", MODULE_NAME);
-			system("echo \"out\" > /sys/class/gpio/gpio193/direction");		// Set as output
-			if (verbose) printf("%s: Init: Set Safe Low\r\n", MODULE_NAME);
-			system("echo \"0\"   > /sys/class/gpio/gpio193/value");			// Set value to low
+	if (verbose) printf("%s: Init: Set Safe Export\r\n", MODULE_NAME);
+	system("echo \"193\" > /sys/class/gpio/export");				// Prepare SAFE digital output
+	if (verbose) printf("%s: Init: Set Safe Direction\r\n", MODULE_NAME);
+	system("echo \"out\" > /sys/class/gpio/gpio193/direction");		// Set as output
+	if (verbose) printf("%s: Init: Set Safe Low\r\n", MODULE_NAME);
+	system("echo \"0\"   > /sys/class/gpio/gpio193/value");			// Set value to low
 	
-			if (verbose) printf("%s: Init: Set nRST Export\r\n", MODULE_NAME);
-			system("echo \"200\" > /sys/class/gpio/export");				// Prepare SAFE digital output
-			if (verbose) printf("%s: Init: Set nRST Direction\r\n", MODULE_NAME);
-			system("echo \"out\" > /sys/class/gpio/gpio200/direction");		// Set as output
-			if (verbose) printf("%s: Init: Set nRST Low\r\n", MODULE_NAME);
-			system("echo \"1\"   > /sys/class/gpio/gpio200/value");			// Set value to high
+	if (verbose) printf("%s: Init: Set nRST Export\r\n", MODULE_NAME);
+	system("echo \"200\" > /sys/class/gpio/export");				// Prepare SAFE digital output
+	if (verbose) printf("%s: Init: Set nRST Direction\r\n", MODULE_NAME);
+	system("echo \"out\" > /sys/class/gpio/gpio200/direction");		// Set as output
+	if (verbose) printf("%s: Init: Set nRST Low\r\n", MODULE_NAME);
+	system("echo \"1\"   > /sys/class/gpio/gpio200/value");			// Set value to high
 
-			if (verbose) printf("%s: Init: Set TogglePwr Export\r\n", MODULE_NAME);
-			system("echo \"202\" > /sys/class/gpio/export");				// Prepare SAFE digital output
-			if (verbose) printf("%s: Init: Set nRST Direction\r\n", MODULE_NAME);
-			system("echo \"out\" > /sys/class/gpio/gpio202/direction");		// Set as output
-			if (verbose) printf("%s: Init: Set nRST Low\r\n", MODULE_NAME);
-			system("echo \"1\"   > /sys/class/gpio/gpio202/value");			// Set value to high
+	if (verbose) printf("%s: Init: Set TogglePwr Export\r\n", MODULE_NAME);
+	system("echo \"202\" > /sys/class/gpio/export");				// Prepare SAFE digital output
+	if (verbose) printf("%s: Init: Set nRST Direction\r\n", MODULE_NAME);
+	system("echo \"out\" > /sys/class/gpio/gpio202/direction");		// Set as output
+	if (verbose) printf("%s: Init: Set nRST Low\r\n", MODULE_NAME);
+	system("echo \"1\"   > /sys/class/gpio/gpio202/value");			// Set value to high
 
-			if (verbose) printf("%s: Init: Set 5VPwr Export\r\n", MODULE_NAME);
-			system("echo \"233\" > /sys/class/gpio/export");				// Prepare SAFE digital output
-			if (verbose) printf("%s: Init: Set 5VPwr Direction\r\n", MODULE_NAME);
-			system("echo \"out\" > /sys/class/gpio/gpio233/direction");		// Set as output
-			if (verbose) printf("%s: Init: Set 5VPwr High(on)\r\n", MODULE_NAME);
-			system("echo \"1\"   > /sys/class/gpio/gpio233/value");			// Set value to high
-			break;
-	}
-	
+	if (verbose) printf("%s: Init: Set 5VPwr Export\r\n", MODULE_NAME);
+	system("echo \"233\" > /sys/class/gpio/export");				// Prepare SAFE digital output
+	if (verbose) printf("%s: Init: Set 5VPwr Direction\r\n", MODULE_NAME);
+	system("echo \"out\" > /sys/class/gpio/gpio233/direction");		// Set as output
+	if (verbose) printf("%s: Init: Set 5VPwr High(on)\r\n", MODULE_NAME);
+	system("echo \"1\"   > /sys/class/gpio/gpio233/value");			// Set value to high
+
 	return(BCSUCCESS);
 }
 
@@ -1157,18 +1088,6 @@ int LoadConfigFileSettings(config_t *cfg, const char *path)
 	}
 
 	setting = config_lookup(cfg, "lp_mode");
-
-	setting = config_lookup(cfg, "hwversion");
-	if(setting != NULL)
-	{
-		hwversion = config_setting_get_int(setting);
-		printf("%s: Interface board version %d.\r\n",MODULE_NAME, hwversion);
-	} 
-	else
-	{
-		hwversion = HWVERSION_DEFAULT;
-		printf("%s: No interface board version number found. Using default %d.\r\n",MODULE_NAME, hwversion);
-	}
 	
 	config_destroy(cfg);
 	return(BCSUCCESS);
@@ -1840,14 +1759,13 @@ void SendMsg(enum msg msgtype, char *payload, int payload_size)
 	MsgID++;
 //	nextMsgTime = curTime;	// set earliest time for sending
 	clock_gettime(CLOCK_REALTIME, &nextMsgTime);	// set earliest time for sending
-//	if (msgtype != TM) {
-//		nextMsgTime.tv_nsec += 300000000;					// next message (300 msec from now)
-//		if (nextMsgTime.tv_nsec > 1000000000) {
-//			nextMsgTime.tv_nsec -= 1000000000;
-//			nextMsgTime.tv_sec += 1;
-//		}
-//	} else	nextMsgTime.tv_sec += 1;						// next message (1 sec from now)
-	nextMsgTime.tv_sec += 1;						// next message (1 sec from now)
+	if (msgtype != TM) {
+		nextMsgTime.tv_nsec += 300000000;					// next message (300 msec from now)
+		if (nextMsgTime.tv_nsec > 1000000000) {
+			nextMsgTime.tv_nsec -= 1000000000;
+			nextMsgTime.tv_sec += 1;
+		}
+	} else	nextMsgTime.tv_sec += 1;						// next message (1 sec from now)
 }
 
 
@@ -1918,141 +1836,3 @@ enum msg MsgType(char *typestr)
 		return(Error);
 	}
 }
-
-
-/**********************************
-*
-* gps_power(), gps_reset(), gps_power_toggle(), set_safe(), led(), set_gpio0()
-*
-* Description: These functions control the digital outputs of the TS-7680.
-*
-* Parameter: int state
-*
-* Return value: None
-*
-* These functions hide the active hi/lo nature of the signals so they can be
-*   called as gps_power(ON), etc. without worrying about whether that's a
-*   logic hi or lo. The argument to led() should be one of: GREEN, RED, ORANGE,
-*   or OFF.
-*
-************************************/
-
-
-void gps_power(int state)
-{
-	char cmdstr[32];
-	
-	if(state)
-	{
-		sprintf(cmdstr,"gpio gps_power 0");
-	}
-	else
-	{
-		sprintf(cmdstr,"gpio gps_power 1");
-	}
-
-	system(cmdstr);
-}
-
-
-void gps_reset(int state)
-{
-	char cmdstr[32];
-	
-	if(state)
-	{
-		sprintf(cmdstr,"gpio gps_reset 0");
-	}
-	else
-	{
-		sprintf(cmdstr,"gpio gps_reset 1");
-	}
-
-	system(cmdstr);
-}
-
-
-void gps_power_toggle(int state)
-{
-	char cmdstr[32];
-	
-	if(state)
-	{
-		sprintf(cmdstr,"gpio gps_pow_tog 0");
-	}
-	else
-	{
-		sprintf(cmdstr,"gpio gps_pow_tog 1");
-	}
-
-	system(cmdstr);
-}
-
-
-void set_safe(int state)
-{
-	char cmdstr[32];
-	
-	if(state)
-	{
-		sprintf(cmdstr,"gpio safe 1");
-	}
-	else
-	{
-		sprintf(cmdstr,"gpio safe 0");
-	}
-
-	system(cmdstr);
-}
-
-
-void led(int state)
-{
-	char cmdstr[32];
-	
-	switch(state)
-	{
-		case RED:
-			sprintf(cmdstr,"gpio led1 0");
-			system(cmdstr);
-			sprintf(cmdstr,"gpio led0 1");
-			system(cmdstr);
-			break;
-		case GREEN:
-			sprintf(cmdstr,"gpio led0 0");
-			system(cmdstr);
-			sprintf(cmdstr,"gpio led1 1");
-			system(cmdstr);
-			break;
-		case ORANGE:
-			sprintf(cmdstr,"gpio led0 1");
-			system(cmdstr);
-			sprintf(cmdstr,"gpio led1 1");
-			system(cmdstr);
-			break;
-		case OFF:
-			sprintf(cmdstr,"gpio led0 0");
-			system(cmdstr);
-			sprintf(cmdstr,"gpio led1 0");
-			system(cmdstr);
-			break;
-	}		
-}
-
-
-void set_gpio0(int state)
-{
-	char cmdstr[32];
-	
-	if(state)
-	{
-		sprintf(cmdstr,"gpio gpio0 1");
-	}
-	else
-	{
-		sprintf(cmdstr,"gpio gpio0 0");
-	}
-
-	system(cmdstr);
-}
-

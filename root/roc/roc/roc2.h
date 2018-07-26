@@ -7,17 +7,12 @@
 #ifndef __ROC__
 #define __ROC__
 
-#define SWDate					"20180722,2225"		///< Build date and time
-#define SWVersion				"026"				///< Software version number
+#define SWDate					"20180426,1600"		///< Build date and time
+#define SWVersion				"023"				///< Software version number
 
 // Definitions
 #define TRUE					1
 #define FALSE					0
-#define ON						1
-#define OFF						0
-#define RED						1
-#define GREEN					2
-#define ORANGE					3
 #define MODULE_NAME				"roc"
 
 #define BAUD_DEFAULT			115200				///< Default serial port baud rate
@@ -119,15 +114,7 @@ int CloseLogFile(void);
 int NewFile(void);
 int LogData(FILE *fp, char *data, int n);
 int CopyFile(char *name);
-int SendGpsCmd(char *cmdstr, int timeout);
-int GetGpsReply(char *replybuf, int timeout);
-void gps_power(int state);
-void gps_reset(int state);
-void gps_power_toggle(int state);
-void set_safe(int state);
-void led(int state);
-void set_gpio0(int state);
-void led_blink(int color, int num, int duration);
+int SendGpsCmd(char *cmdstr);
 
 #endif  //  __ROC__
 
