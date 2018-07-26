@@ -1,3 +1,29 @@
+22-Jul-2018
+-----------
+
+Fixed:
+
+- Minimum delay between messages sent from ROC was increased from 300ms to 1s
+  if the zephyr module. The 300ms limit was sometimes allowing messages to be
+  sent to the Zephyr instrument too quickly causing message acknowledgement
+  errors.
+
+Changes:
+- Changed the build date and time string to "20180722,2225" for both roc and zephyr
+  modules.
+- Changed the software version string to "026" for both roc and zephyr modules.
+
+Bugs:
+- The initialization commands need to be sent to the GPS receiver after turning
+  power back on (when switching from LP mode to FL mode). Currently no way to do
+  that until some form of IPC is implemented.
+- Bing has reported some problems with the latest code:
+   - switching to LP mode doesn't shut down the GPS receiver (NOTE: UNABLE TO
+     REPRODUCE THIS BUG).
+   - Some sort of bug related to sending a telecommand to ROC? Need clarification
+     on this one. See Bing's log entry "2018-06-29_tofix.txt"
+
+
 17-Jul-2018
 -----------
 
