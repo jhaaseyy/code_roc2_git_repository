@@ -1,0 +1,72 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          roc_gpio
+# Required-Start:    $local_fs $network $syslog
+# Required-Stop:     $local_fs $network $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       Configure GPIO pins
+### END INIT INFO
+
+case $1 in
+	start)
+		#GPS Power is on Pin 33 (DIO 203, register 0xB), active low
+
+		#tshwctl -m 0xB --poke 0x2		#initialize high
+		#tshwctl -m 0xB --poke 0x3		#initialize high
+		tshwctl -m 0xB --poke 0x0		#initialize low
+		tshwctl -m 0xB --poke 0x1		#initialize low
+
+		#GPS Reset is on Pin 30 (DIO 200, register 0x8), active low
+		#Initialize to high
+
+		tshwctl -m 0x8 --poke 0x2
+		tshwctl -m 0x8 --poke 0x3
+
+		#GPS Power Toggle is on Pin 32 (DIO 202, register 0xA), active low
+		#Initialize to high
+
+		tshwctl -m 0xA --poke 0x2
+		tshwctl -m 0xA --poke 0x3
+
+		#SAFE is on Pin 23 (DIO 193, register 0x1), active high
+		#Initialize to low
+
+		tshwctl -m 0x1 --poke 0x0
+		tshwctl -m 0x1 --poke 0x1
+
+		#LED0 is on Pin 25 (DIO 195, register 0x3), active high
+		#Initialize to low
+
+		tshwctl -m 0x3 --poke 0x0
+		tshwctl -m 0x3 --poke 0x1
+
+		#LED1 is on Pin 27 (DIO 197, register 0x5), active high
+		#Initialize to low
+
+		tshwctl -m 0x5 --poke 0x0
+		tshwctl -m 0x5 --poke 0x1
+
+		#GPIO_0 is on Pin 31 (DIO 201, register 0x9), active high
+		#Initialize to low
+
+		tshwctl -m 0x9 --poke 0x0
+		tshwctl -m 0x9 --poke 0x1
+
+		;;
+	stop)
+		tshwctl -m 0xB --poke 0x3		#GPS power off
+		tshwctl -m 0x8 --poke 0x3		#Clear GPS reset
+		tshwctl -m 0xA --poke 0x3		#Clear GPS power toggle
+		tshwctl -m 0x1 --poke 0x1		#Clear SAFE indicator to Zephyr
+		tshwctl -m 0x3 --poke 0x1		#Turn off LED
+		tshwctl -m 0x5 --poke 0x1		#Turn off LED
+		tshwctl -m 0x9 --poke 0x1		#GPIO0 off
+		;;
+	restart)
+		;;
+	status)
+		;;
+	reload)
+		;;
+esac

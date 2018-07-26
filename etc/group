@@ -51,4 +51,3 @@ bluetooth:x:111:
 telnetd:x:112:
 sambashare:x:113:
 winbindd_priv:x:114:
-roc:x:1000:

@@ -53,11 +53,13 @@ int main (int argc, char *argv[])
 	if(err<0)
 	{
 		fprintf(stderr, "%s: Initialization error %d. Exiting\r\n",MODULE_NAME,err);
+//		led(RED);
 	}
 	else
 	{
 		printf("SWVersion = %s\r\nSWDate = %s\r\n",SWVersion,SWDate);
 		printf("%s: Module started.\r\n",MODULE_NAME);
+//		led(GREEN);
 	}
 
 	err = GPSStartupCmds();
@@ -729,6 +731,7 @@ int GPSStartupCmds(void)
 	FILE *cmdfile;
 	ssize_t numread;
 	size_t len=0;
+	char reply[256];
 	
 	config_init(&cfgGps);
 
@@ -774,14 +777,17 @@ int GPSStartupCmds(void)
 	i = 0;
 	while((numread = getline(&cmdstr, &len, cmdfile)) != -1)
 	{
-		write(gps_cmd.fp, cmdstr, strlen(cmdstr));
-//		ret = write(gps_cmd.fp, cmdstr, strlen(cmdstr));
-//		ret = write(gps_cmd.fp, serial.term, strlen(serial.term));
-		printf("%s: Processed GPS command %s\r\n",MODULE_NAME,cmdstr);
-		sleep(1);
-		if (cmdstr) free(cmdstr);
-		cmdstr = NULL;
-		i++;
+		if(ret = SendGpsCmd(cmdstr, 12000))
+		{
+			fprintf(stderr, "%s: Error %d sending command %s to GPS receiver.\r\n", MODULE_NAME, ret, cmdstr);
+		}
+		else
+		{
+			if (cmdstr) free(cmdstr);
+			cmdstr = NULL;
+			if(GetGpsReply(reply, 3000) == -1) fprintf(stderr, "%s: Timeout error waiting for GPS reply\r\n", MODULE_NAME);
+			i++;
+		}
 	}
 	fclose(cmdfile);
 	if (cmdstr) free(cmdstr);
@@ -972,8 +978,10 @@ int OpenLogFile(char *name)
 {
 	int i, index, ret;
 	char *strName;
+	char reply[256];
 
-	SendGpsCmd("enoc, COM2, RMC\r");
+	SendGpsCmd("enoc, COM2, RMC\r", 1000);
+	GetGpsReply(reply, 3000);
 	
 	if(!TodaysDirectoryExists())
 	{
@@ -1031,9 +1039,11 @@ int CloseLogFile(void)
 
 int NewFile(void)
 {
+//	led(ORANGE);
 	CloseLogFile();
 	CopyFile(curfilename);
 	OpenLogFile(MODULE_NAME);
+//	led(OFF);
 
 	return(BCSUCCESS);
 }
@@ -1071,12 +1081,235 @@ int CopyFile(char *name)
 }
 
 
-int SendGpsCmd(char *cmdstr)
+int SendGpsCmd(char *cmdstr, int timeout)
 {
 	size_t n;
+	struct timespec spec;
+	int prompt, i, numread, ptr;
+	char inbuf[256];	// needs to be big enough to hold replies from commands
+	double nowtime, endtime;
 	
-	n = write(gps_cmd.fp, cmdstr, strlen(cmdstr));
+/* Get prompt to make sure GPS is ready to receive command.
+	Return an error if prompt not received 
+*/
+	if(verbose) printf("%s: Sending GPS command %s", MODULE_NAME, cmdstr);
+	clock_gettime(CLOCK_MONOTONIC, &spec);
+	nowtime = spec.tv_sec + (spec.tv_nsec / 1000000000);
+	endtime = nowtime + (timeout/1000);
+	
+	write(gps_cmd.fp, "\n", 1);		// send LF to get command prompt
+	prompt=0;
+	numread=0;
+	inbuf[0]=0;
+	ptr=0;
+	
+	while(!prompt && (nowtime < endtime))		// Wait until prompt (COMx>) is received
+	{
+		ioctl(gps_cmd.fp, FIONREAD, &i);
+		if(i>0)
+		{
+			numread = read(gps_cmd.fp, inbuf+ptr, i);
+			ptr += numread;
+			inbuf[ptr] = 0;
+			if(strstr(inbuf, "COM") && strstr(inbuf, ">"))
+			{
+				prompt = 1;
+			}
+		}
+		clock_gettime(CLOCK_MONOTONIC, &spec);
+		nowtime = spec.tv_sec + (spec.tv_nsec / 1000000000);
+	}
+	if(nowtime >= endtime)	return(-1);		// Timed out without receiving prompt
+
+/* Send command
+*/	
+	n = write(gps_cmd.fp, cmdstr, strlen(cmdstr));		// Send command
+	if(n != strlen(cmdstr)) return(-2);					// Some sort of write error occurred
+	
+	return(BCSUCCESS);
 
 }
+
+
+int GetGpsReply(char *replybuf, int timeout)
+{
+	size_t n;
+	int endreply, i, numread, ptr;
+	struct timespec spec;
+	double nowtime, endtime;
+
+	replybuf[0]=0;
+	
+	clock_gettime(CLOCK_MONOTONIC, &spec);
+	nowtime = spec.tv_sec + (spec.tv_nsec / 1000000000);
+	endtime = nowtime + (timeout/1000);
+	
+	endreply = 0;
+	ptr = 0;
+	while(!endreply && (nowtime < endtime))
+	{
+		ioctl(gps_cmd.fp, FIONREAD, &i);
+		if(i>0)
+		{
+			numread = read(gps_cmd.fp, replybuf+ptr, 1);
+			ptr += numread;
+			replybuf[ptr] = 0;
+			if(strstr(replybuf, "COM") && strstr(replybuf, ">"))
+			{
+				endreply = 1;
+			}
+		}
+		clock_gettime(CLOCK_MONOTONIC, &spec);
+		nowtime = spec.tv_sec + (spec.tv_nsec / 1000000000);
+	}
+	if(nowtime >= endtime)	return(-1);		// Timed out without receiving prompt
+	
+	if(verbose) printf("%s: GPS Reply = %s",MODULE_NAME, replybuf);
+	return(strlen(replybuf));
+}
+
+
+/**********************************
+*
+* gps_power(), gps_reset(), gps_power_toggle(), set_safe(), led(), set_gpio0()
+*
+* Description: These functions control the digital outputs of the TS-7680.
+*
+* Parameter: int state
+*
+* Return value: None
+*
+* These functions hide the active hi/lo nature of the signals so they can be
+*   called as gps_power(ON), etc. without worrying about whether that's a
+*   logic hi or lo. The argument to led() should be one of: GREEN, RED, ORANGE,
+*   or OFF.
+*
+************************************/
+
+
+void gps_power(int state)
+{
+	char cmdstr[32];
+	
+	if(state)
+	{
+		sprintf(cmdstr,"gpio gps_power 0");
+	}
+	else
+	{
+		sprintf(cmdstr,"gpio gps_power 1");
+	}
+
+	system(cmdstr);
+}
+
+
+void gps_reset(int state)
+{
+	char cmdstr[32];
+	
+	if(state)
+	{
+		sprintf(cmdstr,"gpio gps_reset 0");
+	}
+	else
+	{
+		sprintf(cmdstr,"gpio gps_reset 1");
+	}
+
+	system(cmdstr);
+}
+
+
+void gps_power_toggle(int state)
+{
+	char cmdstr[32];
+	
+	if(state)
+	{
+		sprintf(cmdstr,"gpio gps_pow_tog 0");
+	}
+	else
+	{
+		sprintf(cmdstr,"gpio gps_pow_tog 1");
+	}
+
+	system(cmdstr);
+}
+
+
+void set_safe(int state)
+{
+	char cmdstr[32];
+	
+	if(state)
+	{
+		sprintf(cmdstr,"gpio safe 1");
+	}
+	else
+	{
+		sprintf(cmdstr,"gpio safe 0");
+	}
+
+	system(cmdstr);
+}
+
+
+void led(int state)
+{
+	char cmdstr[32];
+	
+	switch(state)
+	{
+		case RED:
+			sprintf(cmdstr,"gpio led1 0");
+			system(cmdstr);
+			sprintf(cmdstr,"gpio led0 1");
+			system(cmdstr);
+			break;
+		case GREEN:
+			sprintf(cmdstr,"gpio led0 0");
+			system(cmdstr);
+			sprintf(cmdstr,"gpio led1 1");
+			system(cmdstr);
+			break;
+		case ORANGE:
+			sprintf(cmdstr,"gpio led0 1");
+			system(cmdstr);
+			sprintf(cmdstr,"gpio led1 1");
+			system(cmdstr);
+			break;
+		case OFF:
+			sprintf(cmdstr,"gpio led0 0");
+			system(cmdstr);
+			sprintf(cmdstr,"gpio led1 0");
+			system(cmdstr);
+			break;
+	}		
+}
+
+
+void set_gpio0(int state)
+{
+	char cmdstr[32];
+	
+	if(state)
+	{
+		sprintf(cmdstr,"gpio gpio0 1");
+	}
+	else
+	{
+		sprintf(cmdstr,"gpio gpio0 0");
+	}
+
+	system(cmdstr);
+}
+
+
+void led_blink(int color, int num, int duration)
+{
+	
+}
+
 
 

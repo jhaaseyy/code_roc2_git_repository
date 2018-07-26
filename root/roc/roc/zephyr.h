@@ -10,8 +10,8 @@
 
 // Definitions
 #define INSTID					"ROC"				///< Instrument ID string in message headers
-#define SWDate					"20180426,1600"		///< Build date and time
-#define SWVersion				"023"				///< Software version number
+#define SWDate					"20180722,2225"		///< Build date and time
+#define SWVersion				"026"				///< Software version number
 #define ZephVersion				"100"				///< Zephyr protocol version
 #define MAX_DATA				3800				///< Maximum size of TM packet payload
 #define SAFETIMEOUT				600
@@ -19,6 +19,11 @@
 
 #define TRUE					1
 #define FALSE					0
+#define ON						1
+#define OFF						0
+#define RED						1
+#define GREEN					2
+#define ORANGE					3
 #define MODULE_NAME				"zephyr"
 
 #define BAUD_DEFAULT			115200				///< Default serial port baud rate
@@ -28,6 +33,7 @@
 #define INBUFSIZE				2048				///< Size of incoming serial buffer
 #define OUTBUFSIZE				16348				///< Size of outgoing serial buffer
 #define DIR_DEFAULT				"/data/roc"			///< Default location to store data files
+#define HWVERSION_DEFAULT		2					///< Version number of interface board
 
 #define WAITFORACK				5
 #define WAITFORIM				5
@@ -102,6 +108,7 @@ int shutdown;			///< Indicates whether system should shutdown after this process
 int dataTm;				///< Indicates whether the last TM message sent contains offload data
 int TCflag;				///< Flag TC data transfer
 time_t nextImr;			///< Timer that keeps track of when to send out IMR messages until it gets a response
+int hwversion;			///< Version number of interface board. As of 6/10/18 ROC2.1 and 2.2 have version 2, ROC2.3 has version 3.
 
 typedef struct {
 	char *port;				///< Serial device name
@@ -183,6 +190,12 @@ int HandleSW(char *msgdata);
 int HandleTMAck(char *msgdata);
 int HandleTC(char *msgdata);
 int HandleGPS(char *msgdata);
+void gps_power(int state);
+void gps_reset(int state);
+void gps_power_toggle(int state);
+void set_safe(int state);
+void led(int state);
+void set_gpio0(int state);
 
 char todaysDirectoryName[10];
 char todaysDirectoryPath[100];
