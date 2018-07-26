@@ -70,7 +70,25 @@ $ git push --set-upstream origin roc2.2_code_20180722_026 //This pushes the comm
 ```
 $ git branch -d <branch_name>
 ```
-
+### Doxygen Guidelines
+1. Open terminal and install doxygen
+```
+$ sudo apt install doxygen
+```
+2. Make configuration file. This will control how the doxygen layout look.
+```
+$ doxygen -g doxygen.conf
+```
+3. Edit the doxygen.conf config file as you wish.
+4. Cd to the directory where you want the doxygen files to be
+```
+example:
+$ cd /home
+```
+5. Run doxygen and create docs
+```
+$ doxygen doxygen.conf
+```
 ## Installation on Hardware
 
 Download a copy of the folders here, including the makefile into the ROC linux computer. We recommend placing this at the root directory.
