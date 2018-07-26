@@ -65,7 +65,11 @@ $ git push --set-upstream origin roc2.2_code_20180722_026 //This pushes the comm
 
 ### ROC Version and Branch Control
 1. Each version of the code will have its own branch and shall be named with the convention: roc2.x_code_yyyymmdd_vw. eg:roc2.2_code_20180711. Default branch should always be the latest version.
-2. (For Repository Owner only) To change default branch, go to https://github.com/jhaaseyy/code_roc2_git_repository/settings/branches and change default branch to the latest version.
+2. (For Repository Owner only) To change default branch, go [here] (https://github.com/jhaaseyy/code_roc2_git_repository/settings/branches) and change default branch to the latest version.
+3. To delete a branch locally
+```
+$ git branch -d <branch_name>
+```
 
 ## Installation on Hardware
 
