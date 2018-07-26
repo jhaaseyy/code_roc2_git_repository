@@ -781,21 +781,21 @@ int ZephyrInit(int argc, char *argv[])
 	system("echo \"0\"   > /sys/class/gpio/gpio193/value");			// Set value to low
 	
 	if (verbose) printf("%s: Init: Set nRST Export\r\n", MODULE_NAME);
-	system("echo \"200\" > /sys/class/gpio/export");				// Prepare SAFE digital output
+	system("echo \"200\" > /sys/class/gpio/export");				// Prepare nRST digital output
 	if (verbose) printf("%s: Init: Set nRST Direction\r\n", MODULE_NAME);
 	system("echo \"out\" > /sys/class/gpio/gpio200/direction");		// Set as output
-	if (verbose) printf("%s: Init: Set nRST Low\r\n", MODULE_NAME);
+	if (verbose) printf("%s: Init: Set nRST Hi\r\n", MODULE_NAME);
 	system("echo \"1\"   > /sys/class/gpio/gpio200/value");			// Set value to high
 
 	if (verbose) printf("%s: Init: Set TogglePwr Export\r\n", MODULE_NAME);
-	system("echo \"202\" > /sys/class/gpio/export");				// Prepare SAFE digital output
-	if (verbose) printf("%s: Init: Set nRST Direction\r\n", MODULE_NAME);
+	system("echo \"202\" > /sys/class/gpio/export");				// Prepare TogglePwr digital output
+	if (verbose) printf("%s: Init: Set TogglePwr Direction\r\n", MODULE_NAME);
 	system("echo \"out\" > /sys/class/gpio/gpio202/direction");		// Set as output
-	if (verbose) printf("%s: Init: Set nRST Low\r\n", MODULE_NAME);
+	if (verbose) printf("%s: Init: Set TogglePwr Hi\r\n", MODULE_NAME);
 	system("echo \"1\"   > /sys/class/gpio/gpio202/value");			// Set value to high
 
 	if (verbose) printf("%s: Init: Set 5VPwr Export\r\n", MODULE_NAME);
-	system("echo \"233\" > /sys/class/gpio/export");				// Prepare SAFE digital output
+	system("echo \"233\" > /sys/class/gpio/export");				// Prepare 5VPwr digital output
 	if (verbose) printf("%s: Init: Set 5VPwr Direction\r\n", MODULE_NAME);
 	system("echo \"out\" > /sys/class/gpio/gpio233/direction");		// Set as output
 	if (verbose) printf("%s: Init: Set 5VPwr High(on)\r\n", MODULE_NAME);

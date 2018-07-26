@@ -60,6 +60,7 @@ int main (int argc, char *argv[])
 		printf("%s: Module started.\r\n",MODULE_NAME);
 	}
 
+	sleep(12);	// Pause to wait for GPS board to power up if necessary
 	err = GPSStartupCmds();
 	if(err<0)
 	{
@@ -973,7 +974,7 @@ int OpenLogFile(char *name)
 	int i, index, ret;
 	char *strName;
 
-	SendGpsCmd("enoc, COM2, RMC\r");
+	SendGpsCmd("enoc, COM2, RMC\n");
 	
 	if(!TodaysDirectoryExists())
 	{

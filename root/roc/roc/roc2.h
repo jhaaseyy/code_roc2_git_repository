@@ -7,8 +7,8 @@
 #ifndef __ROC__
 #define __ROC__
 
-#define SWDate					"20180426,1600"		///< Build date and time
-#define SWVersion				"023"				///< Software version number
+#define SWDate					"20180509,2321"		///< Build date and time
+#define SWVersion				"024"				///< Software version number
 
 // Definitions
 #define TRUE					1
