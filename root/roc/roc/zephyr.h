@@ -10,8 +10,8 @@
 
 // Definitions
 #define INSTID					"ROC"				///< Instrument ID string in message headers
-#define SWDate					"20180722,2225"		///< Build date and time
-#define SWVersion				"026"				///< Software version number
+#define SWDate					"20180725,2231"		///< Build date and time
+#define SWVersion				"027"				///< Software version number
 #define ZephVersion				"100"				///< Zephyr protocol version
 #define MAX_DATA				3800				///< Maximum size of TM packet payload
 #define SAFETIMEOUT				600
@@ -25,6 +25,7 @@
 #define GREEN					2
 #define ORANGE					3
 #define MODULE_NAME				"zephyr"
+#define GPIO_PATH				"/opt/roc/gpio"		///< Full path to script that controls digital IO
 
 #define BAUD_DEFAULT			115200				///< Default serial port baud rate
 #define BITS_DEFAULT			"8N1"				///< Default serial data bits

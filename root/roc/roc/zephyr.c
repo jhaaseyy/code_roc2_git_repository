@@ -1944,11 +1944,11 @@ void gps_power(int state)
 	
 	if(state)
 	{
-		sprintf(cmdstr,"gpio gps_power 0");
+		sprintf(cmdstr,"%s gps_power 0", GPIO_PATH);
 	}
 	else
 	{
-		sprintf(cmdstr,"gpio gps_power 1");
+		sprintf(cmdstr,"%s gps_power 1", GPIO_PATH);
 	}
 
 	system(cmdstr);
@@ -1961,11 +1961,11 @@ void gps_reset(int state)
 	
 	if(state)
 	{
-		sprintf(cmdstr,"gpio gps_reset 0");
+		sprintf(cmdstr,"%s gps_reset 0", GPIO_PATH);
 	}
 	else
 	{
-		sprintf(cmdstr,"gpio gps_reset 1");
+		sprintf(cmdstr,"%s gps_reset 1", GPIO_PATH);
 	}
 
 	system(cmdstr);
@@ -1978,11 +1978,11 @@ void gps_power_toggle(int state)
 	
 	if(state)
 	{
-		sprintf(cmdstr,"gpio gps_pow_tog 0");
+		sprintf(cmdstr,"%s gps_pow_tog 0", GPIO_PATH);
 	}
 	else
 	{
-		sprintf(cmdstr,"gpio gps_pow_tog 1");
+		sprintf(cmdstr,"%s gps_pow_tog 1", GPIO_PATH);
 	}
 
 	system(cmdstr);
@@ -1995,11 +1995,11 @@ void set_safe(int state)
 	
 	if(state)
 	{
-		sprintf(cmdstr,"gpio safe 1");
+		sprintf(cmdstr,"%s safe 1", GPIO_PATH);
 	}
 	else
 	{
-		sprintf(cmdstr,"gpio safe 0");
+		sprintf(cmdstr,"%s safe 0", GPIO_PATH);
 	}
 
 	system(cmdstr);
@@ -2013,27 +2013,27 @@ void led(int state)
 	switch(state)
 	{
 		case RED:
-			sprintf(cmdstr,"gpio led1 0");
+			sprintf(cmdstr,"%s led1 0", GPIO_PATH);
 			system(cmdstr);
-			sprintf(cmdstr,"gpio led0 1");
+			sprintf(cmdstr,"%s led0 1", GPIO_PATH);
 			system(cmdstr);
 			break;
 		case GREEN:
-			sprintf(cmdstr,"gpio led0 0");
+			sprintf(cmdstr,"%s led0 0", GPIO_PATH);
 			system(cmdstr);
-			sprintf(cmdstr,"gpio led1 1");
+			sprintf(cmdstr,"%s led1 1", GPIO_PATH);
 			system(cmdstr);
 			break;
 		case ORANGE:
-			sprintf(cmdstr,"gpio led0 1");
+			sprintf(cmdstr,"%s led0 1", GPIO_PATH);
 			system(cmdstr);
-			sprintf(cmdstr,"gpio led1 1");
+			sprintf(cmdstr,"%s led1 1", GPIO_PATH);
 			system(cmdstr);
 			break;
 		case OFF:
-			sprintf(cmdstr,"gpio led0 0");
+			sprintf(cmdstr,"%s led0 0", GPIO_PATH);
 			system(cmdstr);
-			sprintf(cmdstr,"gpio led1 0");
+			sprintf(cmdstr,"%s led1 0", GPIO_PATH);
 			system(cmdstr);
 			break;
 	}		
@@ -2046,11 +2046,11 @@ void set_gpio0(int state)
 	
 	if(state)
 	{
-		sprintf(cmdstr,"gpio gpio0 1");
+		sprintf(cmdstr,"%s gpio0 1", GPIO_PATH);
 	}
 	else
 	{
-		sprintf(cmdstr,"gpio gpio0 0");
+		sprintf(cmdstr,"%s gpio0 0", GPIO_PATH);
 	}
 
 	system(cmdstr);

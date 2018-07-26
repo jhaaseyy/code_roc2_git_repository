@@ -1,3 +1,26 @@
+25-Jul-2018
+-----------
+
+Fixed:
+
+- Fixed bug where the GPS receiver would not shut off when switching to low power
+  mode. This bug only occurred when the software was started automatically at boot
+  up. Cause of the bug was the system call to the "gpio" script that now handles
+  digital I/O. That system call wasn't being specified as a full path to the 
+  executable. That's why it worked when logged in but not when started without a
+  terminal attached to it.
+
+Changes:
+- Changed the build date and time string to "20180725,2231" for both roc and zephyr
+  modules.
+- Changed the software version string to "027" for both roc and zephyr modules.
+
+Bugs:
+- The initialization commands need to be sent to the GPS receiver after turning
+  power back on (when switching from LP mode to FL mode). Currently no way to do
+  that until some form of IPC is implemented.
+
+
 22-Jul-2018
 -----------
 
