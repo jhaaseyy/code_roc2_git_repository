@@ -18,8 +18,8 @@ $^I
 
 # Command Line History (newest to oldest):
 :wq
-:q!
 :q
+:q!
 :w
 :Q!
 :help
@@ -43,65 +43,62 @@ $^I
 
 # Registers:
 "1	LINE	0
-	r
+	seth,off
 "2	LINE	0
-	r
+	
 "3	LINE	0
-	rdd
+	#iface eth0 inet static
 "4	LINE	0
-	echo "0"   > $LED_GRN
+	
 "5	LINE	0
-	echo "out" > /sys/class/gpio/gpio197/direction
+	#iface eth0 inet static
 "6	LINE	0
-	fi
+	echo "0"   > $LED_GRN
 "7	LINE	0
-		echo "197" > /sys/class/gpio/export
+	echo "out" > /sys/class/gpio/gpio197/direction
 "8	LINE	0
-	if test ! -e /sys/class/gpio/gpio197 ; then
+	fi
 "9	LINE	0
-	echo "0"   > $LED_RED
+		echo "197" > /sys/class/gpio/export
 ""-	CHAR	0
-	2
+	s
 
 # File marks:
-'0  10  11  /etc/opt/roc/roc.conf
-'1  4  30  /etc/opt/roc/gps.conf
-'2  6  0  /etc/opt/roc/gps.conf
-'3  1  0  /etc/opt/roc/gps_conf
-'4  7  0  /etc/opt/roc/gps.conf
-'5  16  20  ~/roc/roc/zephyr.h
-'6  6  18  /etc/opt/roc/zephyr.conf
-'7  3  8  /run/network/ifstate
-'8  9  21  /etc/network/interfaces
-'9  8  0  /etc/network/interfaces
+'0  1  27  /etc/opt/roc/config1.txt
+'1  2  0  /etc/opt/roc/config1.txt
+'2  7  23  /etc/opt/roc/roc.conf
+'3  12  15  /etc/opt/roc/zephyr.conf
+'4  2  22  /etc/opt/roc/zephyr.conf
+'5  1  0  /etc/opt/roc/roc.conf
+'6  4  0  /etc/fstab
+'7  4  66  /etc/init.d/roc
+'8  52  0  /etc/init.d/roc_gpio
+'9  73  0  /opt/roc/gpio
 
 # Jumplist (newest first):
--'  10  11  /etc/opt/roc/roc.conf
+-'  1  27  /etc/opt/roc/config1.txt
+-'  2  0  /etc/opt/roc/config1.txt
+-'  7  23  /etc/opt/roc/roc.conf
 -'  1  0  /etc/opt/roc/roc.conf
--'  4  30  /etc/opt/roc/gps.conf
--'  1  0  /etc/opt/roc/gps.conf
--'  6  0  /etc/opt/roc/gps.conf
--'  1  0  /etc/opt/roc/gps_conf
--'  7  0  /etc/opt/roc/gps.conf
--'  16  20  ~/roc/roc/zephyr.h
--'  1  0  ~/roc/roc/zephyr.h
--'  6  18  /etc/opt/roc/zephyr.conf
+-'  12  15  /etc/opt/roc/zephyr.conf
 -'  1  0  /etc/opt/roc/zephyr.conf
--'  3  8  /run/network/ifstate
--'  1  0  /run/network/ifstate
--'  9  21  /etc/network/interfaces
--'  1  0  /etc/network/interfaces
--'  8  0  /etc/network/interfaces
--'  1  0  /etc/network/interface
--'  84  9  ~/roc/roc/zephyr.c
--'  1  0  ~/roc/roc/zephyr.c
--'  80  0  ~/roc/roc/roc2.c
--'  1  0  ~/roc/roc/roc2.c
--'  3  0  /etc/fstab
+-'  2  22  /etc/opt/roc/zephyr.conf
+-'  4  0  /etc/fstab
 -'  1  0  /etc/fstab
+-'  4  66  /etc/init.d/roc
+-'  1  0  /etc/init.d/roc
+-'  52  0  /etc/init.d/roc_gpio
+-'  1  0  /etc/init.d/roc_gpio
+-'  73  0  /opt/roc/gpio
+-'  1  0  /opt/roc/gpio
+-'  7  22  /etc/network/interfaces
+-'  1  0  /etc/network/interfaces
 -'  3  0  /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
 -'  1  0  /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
 -'  1  0  /etc/wpa_supplicant/wpa_supplicant-wlan0.cof
+-'  10  13  /etc/opt/roc/roc.conf
+-'  4  69  /etc/opt/roc/gps.conf
+-'  1  0  /etc/opt/roc/gps.conf
 -'  4  1  /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
 -'  3  1  /etc/wpa_supplicant/wps_supplicant-wlan0.com
 -'  1  0  /etc/wpa_supplicant/wps_supplicant-wlan0.com
@@ -110,7 +107,6 @@ $^I
 -'  3  1  /etc/wpa_supplicant/wpa_supplicant-wlan0.com
 -'  1  0  /etc/wpa_supplicant/wpa_supplicant-wlan0.com
 -'  12  17  /etc/init.d/roc
--'  1  0  /etc/init.d/roc
 -'  13  0  /etc/init.d/roc
 -'  7  72  /etc/profile
 -'  1  0  /etc/profile
@@ -173,78 +169,85 @@ $^I
 -'  8  51  ~/occult_rev288_2013-04-29/occult/source/packager/install/init.d/archive
 -'  1  0  ~/occult_rev288_2013-04-29/occult/source/packager/install/init.d/archive
 -'  38  0  ~/occult_rev288_2013-04-29/occult/source/packager/install/init.d/environ.sh
+-'  1  0  ~/occult_rev288_2013-04-29/occult/source/packager/install/init.d/environ.sh
+-'  17  0  /etc/init.d/roc_led
+-'  14  0  /etc/init.d/roc_led
+-'  11  15  /etc/init.d/roc_led
+-'  1  0  /etc/init.d/roc_uart
 
 # History of marks within files (newest to oldest):
 
+> /etc/opt/roc/config1.txt
+	"	1	27
+	^	1	34
+	.	1	27
+	+	2	59
+	+	3	0
+	+	1	27
+
 > /etc/opt/roc/roc.conf
-	"	10	11
-	^	10	12
-	.	10	11
+	"	7	23
+	^	7	24
+	.	7	18
 	+	4	0
-	+	10	13
-	+	1	0
-	+	1	0
-	+	1	0
-	+	10	11
-
-> /etc/opt/roc/gps.conf
-	"	4	30
-	^	4	31
-	.	4	30
-	+	4	39
-	+	5	19
-	+	5	0
-	+	4	0
-	+	6	0
-	+	7	0
-	+	4	0
-	+	6	0
-	+	4	30
-
-> /etc/opt/roc/gps_conf
-	"	1	0
-
-> ~/roc/roc/zephyr.h
-	"	16	20
-	.	16	20
-	+	16	20
+	+	10	14
+	+	7	18
 
 > /etc/opt/roc/zephyr.conf
-	"	6	18
-	^	6	19
-	.	6	18
+	"	12	15
+	^	12	16
+	.	12	15
 	+	10	16
-	+	6	18
-
-> /run/network/ifstate
-	"	3	8
-	^	3	9
-	.	3	8
-	+	3	8
-
-> /etc/network/interfaces
-	"	9	21
-	^	9	22
-	.	9	21
-	+	7	22
-	+	9	21
-
-> /etc/network/interface
-	"	1	0
-
-> ~/roc/roc/zephyr.c
-	"	84	9
-	.	84	9
-	+	84	9
-
-> ~/roc/roc/roc2.c
-	"	80	0
+	+	14	13
+	+	2	22
+	+	12	61
+	+	2	22
+	+	12	15
 
 > /etc/fstab
-	"	3	0
-	^	3	0
-	.	2	36
-	+	2	36
+	"	4	0
+	^	4	0
+	.	3	44
+	+	3	44
+
+> /etc/init.d/roc
+	"	4	66
+	^	4	67
+	.	4	66
+	+	3	23
+	+	4	65
+	+	8	55
+	+	14	0
+	+	12	17
+	+	11	33
+	+	12	39
+	+	11	14
+	+	12	17
+	+	4	66
+
+> /etc/init.d/roc_gpio
+	"	52	0
+	^	52	0
+	.	51	25
+	+	51	25
+
+> /opt/roc/gpio
+	"	73	0
+	^	73	0
+	.	72	0
+	+	72	0
+
+> /etc/network/interfaces
+	"	7	22
+	^	12	22
+	.	7	22
+	+	13	23
+	+	3	0
+	+	5	0
+	+	10	7
+	+	11	8
+	+	12	21
+	+	7	22
 
 > /etc/wpa_supplicant/wpa_supplicant-wlan0.conf
 	"	3	0
@@ -256,6 +259,15 @@ $^I
 
 > /etc/wpa_supplicant/wpa_supplicant-wlan0.cof
 	"	1	0
+
+> /etc/opt/roc/gps.conf
+	"	4	69
+	^	4	70
+	.	4	69
+	+	4	39
+	+	5	19
+	+	5	0
+	+	4	69
 
 > /etc/wpa_supplicant/wps_supplicant-wlan0.com
 	"	3	1
@@ -271,20 +283,6 @@ $^I
 	"	3	1
 	.	3	1
 	+	3	1
-
-> /etc/init.d/roc
-	"	12	17
-	^	12	18
-	.	12	17
-	+	3	23
-	+	4	65
-	+	8	55
-	+	14	0
-	+	12	17
-	+	11	33
-	+	12	39
-	+	11	14
-	+	12	17
 
 > /etc/profile
 	"	7	72

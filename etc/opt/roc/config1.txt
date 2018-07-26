@@ -1,2 +1,2 @@
-sso,Stream1,COM3,MeasEpoch+PVTGeodetic+SatVisibility,sec5
-seth,off
+scs,COM3,460800,bits8,N,bit1,none
+sso,Stream1,COM3,MeasEpoch+PVTGeodetic+SatVisibility,msec100

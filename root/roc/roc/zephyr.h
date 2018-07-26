@@ -10,7 +10,7 @@
 
 // Definitions
 #define INSTID					"ROC"				///< Instrument ID string in message headers
-#define SWDate					"20180612,2312"		///< Build date and time
+#define SWDate					"20180610,2035"		///< Build date and time
 #define SWVersion				"024"				///< Software version number
 #define ZephVersion				"100"				///< Zephyr protocol version
 #define MAX_DATA				3800				///< Maximum size of TM packet payload

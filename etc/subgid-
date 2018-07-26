@@ -5,4 +5,3 @@ systemd-bus-proxy:296608:65536
 messagebus:362144:65536
 sshd:427680:65536
 statd:493216:65536
-telnetd:558752:65536
