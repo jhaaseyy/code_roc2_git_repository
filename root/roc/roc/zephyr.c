@@ -55,16 +55,19 @@ int main (int argc, char *argv[])
 	struct pollfd fds[1];
 
 	err = ZephyrInit(argc, argv);
+//	led(RED);
 	sendIMRatPower = 1;
 	if(err<0)
 	{
 		fprintf(stderr, "%s: Initialization error %d. Exiting\r\n",MODULE_NAME,err);
+		if(hwversion>2) led(RED);
 	}
 	else 
 	{
 		printf("SWVersion = %s\r\nSWDate = %s\r\n",SWVersion,SWDate);
 		printf("%s: Module started.\r\n",MODULE_NAME);
 //		write(zephyr.fp, "ROC online\r\n", 12);
+		if(hwversion>2) led(GREEN);
 	}
 	
 	term=zephyr.term[strlen(zephyr.term)-1];
@@ -149,7 +152,6 @@ int main (int argc, char *argv[])
 //			nextfile.tv_sec+=file_len;
 //			NewFile();
 //		}
-//		usleep(2000000);		// sleep for 2s
 		usleep(200000);		// sleep for 0.2s
 		
 //		if(time(NULL) > ackTimeout) waitingAck=0;
@@ -180,7 +182,6 @@ int main (int argc, char *argv[])
 							case 3:
 								if (verbose) printf("%s: Entering FL mode. GPS power on.\r\n", MODULE_NAME);
 								gps_power(ON);
-								led(GREEN);		// Set LED to green to indicate flight mode
 								break;
 							default:
 								if (verbose) printf("%s: Toggle Wakeup to Septentrio - Flight Mode\r\n", MODULE_NAME);
@@ -223,8 +224,8 @@ int main (int argc, char *argv[])
 						switch(hwversion)
 						{
 							case 3:
-								if (verbose) printf("%s: Entering SB mode. GPS power off.\r\n", MODULE_NAME);
-								gps_power(ON);
+//								if (verbose) printf("%s: Entering SB mode. GPS power off.\r\n", MODULE_NAME);
+//								gps_power(OFF);
 								break;
 							default:
 								if (verbose) printf("%s: Toggle Wakeup to Septentrio - Flight Mode\r\n", MODULE_NAME);
@@ -836,7 +837,7 @@ int ZephyrInit(int argc, char *argv[])
 	switch(hwversion)
 	{
 		case 3:
-			gps_power(OFF);	// Note: this also turns off power to LED's
+			gps_power(ON);	// Note: this also turns on power to LED's
 			break;
 		default:
 			if (verbose) printf("%s: Init: Set Safe Export\r\n", MODULE_NAME);
