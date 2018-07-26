@@ -60,7 +60,6 @@ int main (int argc, char *argv[])
 		printf("%s: Module started.\r\n",MODULE_NAME);
 	}
 
-//	sleep(12);	// Pause to wait for GPS board to power up if necessary
 	err = GPSStartupCmds();
 	if(err<0)
 	{
@@ -730,7 +729,6 @@ int GPSStartupCmds(void)
 	FILE *cmdfile;
 	ssize_t numread;
 	size_t len=0;
-	char reply[256];
 	
 	config_init(&cfgGps);
 
@@ -776,17 +774,14 @@ int GPSStartupCmds(void)
 	i = 0;
 	while((numread = getline(&cmdstr, &len, cmdfile)) != -1)
 	{
-		if(ret = SendGpsCmd(cmdstr, 12000))
-		{
-			fprintf(stderr, "%s: Error %d sending command %s to GPS receiver.\r\n", MODULE_NAME, ret, cmdstr);
-		}
-		else
-		{
-			if (cmdstr) free(cmdstr);
-			cmdstr = NULL;
-			if(GetGpsReply(reply, 3000) == -1) fprintf(stderr, "%s: Timeout error waiting for GPS reply\r\n", MODULE_NAME);
-			i++;
-		}
+		write(gps_cmd.fp, cmdstr, strlen(cmdstr));
+//		ret = write(gps_cmd.fp, cmdstr, strlen(cmdstr));
+//		ret = write(gps_cmd.fp, serial.term, strlen(serial.term));
+		printf("%s: Processed GPS command %s\r\n",MODULE_NAME,cmdstr);
+		sleep(1);
+		if (cmdstr) free(cmdstr);
+		cmdstr = NULL;
+		i++;
 	}
 	fclose(cmdfile);
 	if (cmdstr) free(cmdstr);
@@ -977,11 +972,9 @@ int OpenLogFile(char *name)
 {
 	int i, index, ret;
 	char *strName;
-	char reply[256];
-	
-	SendGpsCmd("enoc, COM2, RMC\n", 1000);
-	GetGpsReply(reply, 3000);
 
+	SendGpsCmd("enoc, COM2, RMC\r");
+	
 	if(!TodaysDirectoryExists())
 	{
 		if(CreateDayDirectory()) return(BCFILEERROR);
@@ -1078,90 +1071,12 @@ int CopyFile(char *name)
 }
 
 
-int SendGpsCmd(char *cmdstr, int timeout)
+int SendGpsCmd(char *cmdstr)
 {
 	size_t n;
-	struct timespec spec;
-	int prompt, i, numread, ptr;
-	char inbuf[256];	// needs to be big enough to hold replies from commands
-	double nowtime, endtime;
 	
-/* Get prompt to make sure GPS is ready to receive command.
-	Return an error if prompt not received 
-*/
-	if(verbose) printf("%s: Sending GPS command %s", MODULE_NAME, cmdstr);
-	clock_gettime(CLOCK_MONOTONIC, &spec);
-	nowtime = spec.tv_sec + (spec.tv_nsec / 1000000000);
-	endtime = nowtime + (timeout/1000);
-	
-	write(gps_cmd.fp, "\n", 1);		// send LF to get command prompt
-	prompt=0;
-	numread=0;
-	inbuf[0]=0;
-	ptr=0;
-	
-	while(!prompt && (nowtime < endtime))		// Wait until prompt (COMx>) is received
-	{
-		ioctl(gps_cmd.fp, FIONREAD, &i);
-		if(i>0)
-		{
-			numread = read(gps_cmd.fp, inbuf+ptr, i);
-			ptr += numread;
-			inbuf[ptr] = 0;
-			if(strstr(inbuf, "COM") && strstr(inbuf, ">"))
-			{
-				prompt = 1;
-			}
-		}
-		clock_gettime(CLOCK_MONOTONIC, &spec);
-		nowtime = spec.tv_sec + (spec.tv_nsec / 1000000000);
-	}
-	if(nowtime >= endtime)	return(-1);		// Timed out without receiving prompt
-
-/* Send command
-*/	
-	n = write(gps_cmd.fp, cmdstr, strlen(cmdstr));		// Send command
-	if(n != strlen(cmdstr)) return(-2);					// Some sort of write error occurred
-	
-	return(BCSUCCESS);
+	n = write(gps_cmd.fp, cmdstr, strlen(cmdstr));
 
 }
 
 
-int GetGpsReply(char *replybuf, int timeout)
-{
-	size_t n;
-	int endreply, i, numread, ptr;
-	struct timespec spec;
-	double nowtime, endtime;
-
-	replybuf[0]=0;
-	
-	clock_gettime(CLOCK_MONOTONIC, &spec);
-	nowtime = spec.tv_sec + (spec.tv_nsec / 1000000000);
-	endtime = nowtime + (timeout/1000);
-	
-	endreply = 0;
-	ptr = 0;
-	while(!endreply && (nowtime < endtime))
-	{
-		ioctl(gps_cmd.fp, FIONREAD, &i);
-		if(i>0)
-		{
-			numread = read(gps_cmd.fp, replybuf+ptr, 1);
-			ptr += numread;
-			replybuf[ptr] = 0;
-			if(strstr(replybuf, "COM") && strstr(replybuf, ">"))
-			{
-				endreply = 1;
-			}
-		}
-		clock_gettime(CLOCK_MONOTONIC, &spec);
-		nowtime = spec.tv_sec + (spec.tv_nsec / 1000000000);
-	}
-	if(nowtime >= endtime)	return(-1);		// Timed out without receiving prompt
-	
-	if(verbose) printf("%s: GPS Reply = %s",MODULE_NAME, replybuf);
-	return(strlen(replybuf));
-}
-		

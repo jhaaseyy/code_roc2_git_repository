@@ -8,6 +8,6 @@
 # Description:       Starts ROC data collection software
 ### END INIT INFO
 
-/opt/roc/roc -v &> /root/roc_log.txt &
-exec /opt/roc/zephyr -v &> /root/zephyr_log.txt &
-#ifdown wlan0
+/opt/roc/roc &> /root/roc_log.txt &
+/opt/roc/zephyr &> /root/zephyr_log.txt &
+
