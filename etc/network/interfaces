@@ -3,10 +3,7 @@
 source-directory /etc/network/interfaces.d
 auto wlan0 
 iface wlan0 inet static
-	address 128.46.118.22
+	address 128.46.118.21
 	netmask 255.255.255.0
 
-auto eth0
 iface eth0 inet static
-	address 192.168.0.20
-	netmask 255.255.255.0

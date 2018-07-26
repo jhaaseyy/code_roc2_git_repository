@@ -1840,14 +1840,13 @@ void SendMsg(enum msg msgtype, char *payload, int payload_size)
 	MsgID++;
 //	nextMsgTime = curTime;	// set earliest time for sending
 	clock_gettime(CLOCK_REALTIME, &nextMsgTime);	// set earliest time for sending
-//	if (msgtype != TM) {
-//		nextMsgTime.tv_nsec += 300000000;					// next message (300 msec from now)
-//		if (nextMsgTime.tv_nsec > 1000000000) {
-//			nextMsgTime.tv_nsec -= 1000000000;
-//			nextMsgTime.tv_sec += 1;
-//		}
-//	} else	nextMsgTime.tv_sec += 1;						// next message (1 sec from now)
-	nextMsgTime.tv_sec += 1;						// next message (1 sec from now)
+	if (msgtype != TM) {
+		nextMsgTime.tv_nsec += 300000000;					// next message (300 msec from now)
+		if (nextMsgTime.tv_nsec > 1000000000) {
+			nextMsgTime.tv_nsec -= 1000000000;
+			nextMsgTime.tv_sec += 1;
+		}
+	} else	nextMsgTime.tv_sec += 1;						// next message (1 sec from now)
 }
 
 

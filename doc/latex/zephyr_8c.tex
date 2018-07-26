@@ -1,0 +1,326 @@
+\hypertarget{zephyr_8c}{}\section{roc2.3\+\_\+code\+\_\+2018-\/06-\/09/root/roc/roc/zephyr.c File Reference}
+\label{zephyr_8c}\index{roc2.\+3\+\_\+code\+\_\+2018-\/06-\/09/root/roc/roc/zephyr.\+c@{roc2.\+3\+\_\+code\+\_\+2018-\/06-\/09/root/roc/roc/zephyr.\+c}}
+
+
+R\+O\+C2 Zephyr Interface Module.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$ctype.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$libconfig.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+{\ttfamily \#include $<$termios.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$poll.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+{\ttfamily \#include $<$dirent.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}zephyr.\+h\char`\"{}}\newline
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{zephyr_8c_a777ab160b5ad985f2ccc1a878e5936fd}{S\+E\+P\+T\+E\+N\+T\+R\+I\+O\+T\+O\+G\+L\+NG}~300000
+\begin{DoxyCompactList}\small\item\em Main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{zephyr_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{zephyr_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+\mbox{\Hypertarget{zephyr_8c_a4420395a38828d6be4aae8646268d258}\label{zephyr_8c_a4420395a38828d6be4aae8646268d258}} 
+int {\bfseries Msg\+Handler} (enum \hyperlink{zephyr_8h_a10a0f35066079abd150539d0d13dbf3e}{msg} msgtype, char $\ast$msgdata)
+\item 
+int \hyperlink{zephyr_8c_ac8252c63f3bdc239fbdf6fbd93d40c76}{Handle\+IM} (char $\ast$msgdata)
+\item 
+\mbox{\Hypertarget{zephyr_8c_ac5b4e6f9b660a68301b5cd686040e61a}\label{zephyr_8c_ac5b4e6f9b660a68301b5cd686040e61a}} 
+int {\bfseries Handle\+S\+Ack} (char $\ast$msgdata)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a81340cc09bb1fbb59c968fa3d3b41064}\label{zephyr_8c_a81340cc09bb1fbb59c968fa3d3b41064}} 
+int {\bfseries Handle\+SW} (char $\ast$msgdata)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a405decabf57ea3d65a9fea453e4a2fa3}\label{zephyr_8c_a405decabf57ea3d65a9fea453e4a2fa3}} 
+int {\bfseries Handle\+T\+M\+Ack} (char $\ast$msgdata)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a24fd4d56749147dbdfbb5817276010a8}\label{zephyr_8c_a24fd4d56749147dbdfbb5817276010a8}} 
+int {\bfseries Handle\+TC} (char $\ast$msgdata)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a6f9ac83f838130b9d2723d02ae37562e}\label{zephyr_8c_a6f9ac83f838130b9d2723d02ae37562e}} 
+int {\bfseries Handle\+G\+PS} (char $\ast$msgdata)
+\item 
+int \hyperlink{zephyr_8c_a26a5cd9326852a6f3a89225c8642479b}{Zephyr\+Init} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Performs module initialization. \end{DoxyCompactList}\item 
+int \hyperlink{zephyr_8c_a40809263d9e34d3d93cdb0eed73db857}{Zephyr\+Cleanup} (void)
+\begin{DoxyCompactList}\small\item\em Closes sockets and frees memory. \end{DoxyCompactList}\item 
+int \hyperlink{zephyr_8c_a5dbf303fd2c465b1e724a247623fdbd2}{Cmd\+Line\+Handler} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Parses command line arguments. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{zephyr_8c_a40185ea52d16cecaafae70740e90af29}\label{zephyr_8c_a40185ea52d16cecaafae70740e90af29}} 
+void \hyperlink{zephyr_8c_a40185ea52d16cecaafae70740e90af29}{Usage} (void)
+\begin{DoxyCompactList}\small\item\em Prints the usage summary showing valid command line options. \end{DoxyCompactList}\item 
+int \hyperlink{zephyr_8c_a8ed0e63e6cf78544f92b023037e3e7b8}{Load\+Config\+File\+Settings} (config\+\_\+t $\ast$cfg, const char $\ast$path)
+\begin{DoxyCompactList}\small\item\em Reads the program configuration file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{zephyr_8c_a919ac26442368faff61c89f0f62fd58b}\label{zephyr_8c_a919ac26442368faff61c89f0f62fd58b}} 
+int {\bfseries Serial\+Port\+Init} (\hyperlink{structserial}{serial} port)
+\item 
+\mbox{\Hypertarget{zephyr_8c_af890f66e1e86cf2e43aafd221eddabbd}\label{zephyr_8c_af890f66e1e86cf2e43aafd221eddabbd}} 
+int {\bfseries get\+\_\+baud} (int baud)
+\item 
+\mbox{\Hypertarget{zephyr_8c_adab6d320323ece6f7627cb9bb04d0eb9}\label{zephyr_8c_adab6d320323ece6f7627cb9bb04d0eb9}} 
+int {\bfseries verify\+\_\+bits} (const char $\ast$bits)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a10d59c21de300f9eae88f1b90ef845f2}\label{zephyr_8c_a10d59c21de300f9eae88f1b90ef845f2}} 
+int {\bfseries verify\+\_\+flow} (const char $\ast$bits)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a0bacb9e2137b9572d5f02c23de2ad813}\label{zephyr_8c_a0bacb9e2137b9572d5f02c23de2ad813}} 
+char $\ast$ {\bfseries Todays\+Directory\+Name} (void)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a29819f4927e98849304e948f13c12574}\label{zephyr_8c_a29819f4927e98849304e948f13c12574}} 
+char $\ast$ {\bfseries Todays\+Directory\+Path} (void)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a88fb6383c5c934e876be013729f8ab60}\label{zephyr_8c_a88fb6383c5c934e876be013729f8ab60}} 
+int {\bfseries Todays\+Directory\+Exists} (void)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a0eaf55c523b081609cd85dd6eb04682b}\label{zephyr_8c_a0eaf55c523b081609cd85dd6eb04682b}} 
+int {\bfseries Create\+Day\+Directory} (void)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a45786db9b46a6cc20e64bd0a851655bc}\label{zephyr_8c_a45786db9b46a6cc20e64bd0a851655bc}} 
+char $\ast$ {\bfseries Log\+File\+Name} (char $\ast$name)
+\item 
+\mbox{\Hypertarget{zephyr_8c_af8b73dc85a9b8da6978eac659ec8531b}\label{zephyr_8c_af8b73dc85a9b8da6978eac659ec8531b}} 
+int {\bfseries Open\+Log\+File} (char $\ast$name)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a84b0f0a6d9c4b56b743eb5b171f3172c}\label{zephyr_8c_a84b0f0a6d9c4b56b743eb5b171f3172c}} 
+int {\bfseries Close\+Log\+File} (void)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a5366f78d45883b7ad5934d6910efa6c5}\label{zephyr_8c_a5366f78d45883b7ad5934d6910efa6c5}} 
+int {\bfseries New\+File} (void)
+\item 
+\mbox{\Hypertarget{zephyr_8c_af31e21e2ff935496c7ce8dc5e52b65c3}\label{zephyr_8c_af31e21e2ff935496c7ce8dc5e52b65c3}} 
+int {\bfseries Log\+Data} (F\+I\+LE $\ast$\hyperlink{zephyr_8h_aa065f30aa9f5f9a42132c82c787ee70b}{fp}, char $\ast$data, int n)
+\item 
+\mbox{\Hypertarget{zephyr_8c_ab66e64dd30463cea0a06ac33c9cb3522}\label{zephyr_8c_ab66e64dd30463cea0a06ac33c9cb3522}} 
+char $\ast$ {\bfseries Get\+Next\+File} (void)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a184ae444081beacfe0bd5b712d378b59}\label{zephyr_8c_a184ae444081beacfe0bd5b712d378b59}} 
+int {\bfseries Send\+File} (char $\ast$name)
+\item 
+\mbox{\Hypertarget{zephyr_8c_af672e15ff453fe857ab4ce7de925f34a}\label{zephyr_8c_af672e15ff453fe857ab4ce7de925f34a}} 
+int {\bfseries T\+C\+Send\+File} (char $\ast$name)
+\item 
+\mbox{\Hypertarget{zephyr_8c_abf9cb423a606dc4f8232d1b3394042d5}\label{zephyr_8c_abf9cb423a606dc4f8232d1b3394042d5}} 
+int {\bfseries Remove\+File} (char $\ast$name)
+\item 
+void \hyperlink{zephyr_8c_a6e021f179fc712de402af1043ca1a9ef}{Send\+Msg} (enum \hyperlink{zephyr_8h_a10a0f35066079abd150539d0d13dbf3e}{msg} msgtype, char $\ast$payload, int payload\+\_\+size)
+\item 
+\mbox{\Hypertarget{zephyr_8c_aabe674fb7d630daaebb86607af12308a}\label{zephyr_8c_aabe674fb7d630daaebb86607af12308a}} 
+int {\bfseries C\+R\+C\+Comp} (char $\ast$data, int len)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a626fb8bdfcd2bed45be4fe9fabb74f48}\label{zephyr_8c_a626fb8bdfcd2bed45be4fe9fabb74f48}} 
+unsigned short {\bfseries C\+RC} (unsigned short last, char next)
+\item 
+\mbox{\Hypertarget{zephyr_8c_aa7865b0822633a51bd794f1922f39711}\label{zephyr_8c_aa7865b0822633a51bd794f1922f39711}} 
+unsigned short {\bfseries Compute\+C\+RC} (char $\ast$data, int len)
+\item 
+enum \hyperlink{zephyr_8h_a10a0f35066079abd150539d0d13dbf3e}{msg} \hyperlink{zephyr_8c_a224d36d32fdd9a46fced3ac36c639169}{Msg\+Type} (char $\ast$typestr)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a093f472d65a4478a2a23fa69ea593ef0}\label{zephyr_8c_a093f472d65a4478a2a23fa69ea593ef0}} 
+void {\bfseries gps\+\_\+power} (int state)
+\item 
+\mbox{\Hypertarget{zephyr_8c_af1aef5309c25647017f7108bc58873f7}\label{zephyr_8c_af1aef5309c25647017f7108bc58873f7}} 
+void {\bfseries gps\+\_\+reset} (int state)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a450d4faa9f19206a09ccd2e461eff601}\label{zephyr_8c_a450d4faa9f19206a09ccd2e461eff601}} 
+void {\bfseries gps\+\_\+power\+\_\+toggle} (int state)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a7e696bce041fca9cc1924bcd65cbc503}\label{zephyr_8c_a7e696bce041fca9cc1924bcd65cbc503}} 
+void {\bfseries set\+\_\+safe} (int state)
+\item 
+\mbox{\Hypertarget{zephyr_8c_a94bb341ea8ea68eb26f43e8664513609}\label{zephyr_8c_a94bb341ea8ea68eb26f43e8664513609}} 
+void {\bfseries led} (int state)
+\item 
+\mbox{\Hypertarget{zephyr_8c_ac266e79779ea42b506b577821d4a834d}\label{zephyr_8c_ac266e79779ea42b506b577821d4a834d}} 
+void {\bfseries set\+\_\+gpio0} (int state)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+R\+O\+C2 Zephyr Interface Module. 
+
+\begin{DoxyCopyright}{Copyright}
+2018 David Jabson, Brainstorm Engineering
+\end{DoxyCopyright}
+This program is the first version of data collection software for the R\+O\+C2 Radio Occultation Instrument. It lacks the full feature set of the final instrument but performs the following\+:
+
+
+\begin{DoxyItemize}
+\item Reads configuration file to determine commands for setting up G\+PS receiver
+\item Configures G\+PS receiver
+\item Launch data offload program
+\item Logs data received from G\+PS receiver to files
+\item When data file is closed, calls data processing script and open new file 
+\end{DoxyItemize}
+
+\subsection{Macro Definition Documentation}
+\mbox{\Hypertarget{zephyr_8c_a777ab160b5ad985f2ccc1a878e5936fd}\label{zephyr_8c_a777ab160b5ad985f2ccc1a878e5936fd}} 
+\index{zephyr.\+c@{zephyr.\+c}!S\+E\+P\+T\+E\+N\+T\+R\+I\+O\+T\+O\+G\+L\+NG@{S\+E\+P\+T\+E\+N\+T\+R\+I\+O\+T\+O\+G\+L\+NG}}
+\index{S\+E\+P\+T\+E\+N\+T\+R\+I\+O\+T\+O\+G\+L\+NG@{S\+E\+P\+T\+E\+N\+T\+R\+I\+O\+T\+O\+G\+L\+NG}!zephyr.\+c@{zephyr.\+c}}
+\subsubsection{\texorpdfstring{S\+E\+P\+T\+E\+N\+T\+R\+I\+O\+T\+O\+G\+L\+NG}{SEPTENTRIOTOGLNG}}
+{\footnotesize\ttfamily \#define S\+E\+P\+T\+E\+N\+T\+R\+I\+O\+T\+O\+G\+L\+NG~300000}
+
+
+
+Main function. 
+
+Calls \hyperlink{zephyr_8c_a26a5cd9326852a6f3a89225c8642479b}{Zephyr\+Init()} to perform initialization then enters the main while loop where it .... the main loop stops, then \hyperlink{zephyr_8c_a40809263d9e34d3d93cdb0eed73db857}{Zephyr\+Cleanup()} is called before exiting. 
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{zephyr_8c_a5dbf303fd2c465b1e724a247623fdbd2}\label{zephyr_8c_a5dbf303fd2c465b1e724a247623fdbd2}} 
+\index{zephyr.\+c@{zephyr.\+c}!Cmd\+Line\+Handler@{Cmd\+Line\+Handler}}
+\index{Cmd\+Line\+Handler@{Cmd\+Line\+Handler}!zephyr.\+c@{zephyr.\+c}}
+\subsubsection{\texorpdfstring{Cmd\+Line\+Handler()}{CmdLineHandler()}}
+{\footnotesize\ttfamily int Cmd\+Line\+Handler (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Parses command line arguments. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of command line arguments passed to main(). \\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & List of command line arguments passed to main(). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item B\+C\+S\+U\+C\+C\+E\+SS if successful
+\item B\+C\+E\+R\+R\+OR if there was an error parsing any of the command line options 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{zephyr_8c_ac8252c63f3bdc239fbdf6fbd93d40c76}\label{zephyr_8c_ac8252c63f3bdc239fbdf6fbd93d40c76}} 
+\index{zephyr.\+c@{zephyr.\+c}!Handle\+IM@{Handle\+IM}}
+\index{Handle\+IM@{Handle\+IM}!zephyr.\+c@{zephyr.\+c}}
+\subsubsection{\texorpdfstring{Handle\+I\+M()}{HandleIM()}}
+{\footnotesize\ttfamily int Handle\+IM (\begin{DoxyParamCaption}\item[{char $\ast$}]{msgdata }\end{DoxyParamCaption})}
+
+$<$ Switch to flight mode
+
+$<$ Switch to Standby mode
+
+$<$ Switch to Low Power mode
+
+$<$ Switch to Safety mode
+
+$<$ Switch to End Flight mode \mbox{\Hypertarget{zephyr_8c_a8ed0e63e6cf78544f92b023037e3e7b8}\label{zephyr_8c_a8ed0e63e6cf78544f92b023037e3e7b8}} 
+\index{zephyr.\+c@{zephyr.\+c}!Load\+Config\+File\+Settings@{Load\+Config\+File\+Settings}}
+\index{Load\+Config\+File\+Settings@{Load\+Config\+File\+Settings}!zephyr.\+c@{zephyr.\+c}}
+\subsubsection{\texorpdfstring{Load\+Config\+File\+Settings()}{LoadConfigFileSettings()}}
+{\footnotesize\ttfamily int Load\+Config\+File\+Settings (\begin{DoxyParamCaption}\item[{config\+\_\+t $\ast$}]{cfg,  }\item[{const char $\ast$}]{path }\end{DoxyParamCaption})}
+
+
+
+Reads the program configuration file. 
+
+This function opens the module\textquotesingle{}s configuration file (whose path is defined in the path\+Cfg\+Roc global) and reads the contents. The currently supported settings that can be placed in the config file are\+:
+\begin{DoxyItemize}
+\item (Optional) Port number to use for incoming socket connections (socket\+\_\+in)
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em cfg} & Pointer to config\+\_\+t object for storing state of config file operations. \\
+\hline
+{\em path} & String containing full path of the config file to read. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item B\+C\+S\+U\+C\+C\+E\+SS if successful
+\item B\+C\+C\+O\+N\+F\+I\+G\+R\+E\+A\+D\+E\+R\+R\+OR indicates an error reading the configuration file 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\mbox{\Hypertarget{zephyr_8c_a224d36d32fdd9a46fced3ac36c639169}\label{zephyr_8c_a224d36d32fdd9a46fced3ac36c639169}} 
+\index{zephyr.\+c@{zephyr.\+c}!Msg\+Type@{Msg\+Type}}
+\index{Msg\+Type@{Msg\+Type}!zephyr.\+c@{zephyr.\+c}}
+\subsubsection{\texorpdfstring{Msg\+Type()}{MsgType()}}
+{\footnotesize\ttfamily enum \hyperlink{zephyr_8h_a10a0f35066079abd150539d0d13dbf3e}{msg} Msg\+Type (\begin{DoxyParamCaption}\item[{char $\ast$}]{typestr }\end{DoxyParamCaption})}
+
+$<$ Got an IM message
+
+$<$ Got an S\+Ack message
+
+$<$ Got an SW message
+
+$<$ Got a T\+M\+Ack message
+
+$<$ Got a TC message
+
+$<$ Got a G\+PS message \mbox{\Hypertarget{zephyr_8c_a6e021f179fc712de402af1043ca1a9ef}\label{zephyr_8c_a6e021f179fc712de402af1043ca1a9ef}} 
+\index{zephyr.\+c@{zephyr.\+c}!Send\+Msg@{Send\+Msg}}
+\index{Send\+Msg@{Send\+Msg}!zephyr.\+c@{zephyr.\+c}}
+\subsubsection{\texorpdfstring{Send\+Msg()}{SendMsg()}}
+{\footnotesize\ttfamily void Send\+Msg (\begin{DoxyParamCaption}\item[{enum \hyperlink{zephyr_8h_a10a0f35066079abd150539d0d13dbf3e}{msg}}]{msgtype,  }\item[{char $\ast$}]{payload,  }\item[{int}]{payload\+\_\+size }\end{DoxyParamCaption})}
+
+$<$ Tells Zephyr we\textquotesingle{}re done booting and ready for mode change
+
+$<$ Tells Zephyr we got the mode change command
+
+$<$ always sending A\+CK for now, change later
+
+$<$ Tells Zephyr we\textquotesingle{}re in Safety mode now, ok to shut off power
+
+$<$ Telemetry message. This is how we send data to Zephyr
+
+$<$ Tells Zephyr we got the telecommand message (uplink data)
+
+$<$ always sending A\+CK for now, change later \mbox{\Hypertarget{zephyr_8c_a40809263d9e34d3d93cdb0eed73db857}\label{zephyr_8c_a40809263d9e34d3d93cdb0eed73db857}} 
+\index{zephyr.\+c@{zephyr.\+c}!Zephyr\+Cleanup@{Zephyr\+Cleanup}}
+\index{Zephyr\+Cleanup@{Zephyr\+Cleanup}!zephyr.\+c@{zephyr.\+c}}
+\subsubsection{\texorpdfstring{Zephyr\+Cleanup()}{ZephyrCleanup()}}
+{\footnotesize\ttfamily int Zephyr\+Cleanup (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Closes sockets and frees memory. 
+
+There will be some serial port clean up stuff in here.
+
+\begin{DoxyReturn}{Returns}
+Always returns B\+C\+S\+U\+C\+C\+E\+SS 
+\end{DoxyReturn}
+\mbox{\Hypertarget{zephyr_8c_a26a5cd9326852a6f3a89225c8642479b}\label{zephyr_8c_a26a5cd9326852a6f3a89225c8642479b}} 
+\index{zephyr.\+c@{zephyr.\+c}!Zephyr\+Init@{Zephyr\+Init}}
+\index{Zephyr\+Init@{Zephyr\+Init}!zephyr.\+c@{zephyr.\+c}}
+\subsubsection{\texorpdfstring{Zephyr\+Init()}{ZephyrInit()}}
+{\footnotesize\ttfamily int Zephyr\+Init (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Performs module initialization. 
+
+Calls \hyperlink{zephyr_8c_a8ed0e63e6cf78544f92b023037e3e7b8}{Load\+Config\+File\+Settings()} to load the configuration file settings for this module and calls \hyperlink{zephyr_8c_a5dbf303fd2c465b1e724a247623fdbd2}{Cmd\+Line\+Handler()} to handle any command line options. Finally configures a Z\+MQ R\+EP socket to listen for messages from other modules.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of command line arguments passed to main(). \\
+\hline
+{\em argv\mbox{[}$\,$\mbox{]}} & List of command line arguments passed to main(). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\begin{DoxyItemize}
+\item B\+C\+S\+U\+C\+C\+E\+SS if successful.
+\item B\+C\+C\+O\+N\+F\+I\+G\+R\+E\+A\+D\+E\+R\+R\+OR indicates an error in \hyperlink{zephyr_8c_a8ed0e63e6cf78544f92b023037e3e7b8}{Load\+Config\+File\+Settings()}.
+\item B\+C\+C\+M\+D\+L\+I\+N\+E\+E\+R\+R\+OR indicates an error in \hyperlink{zephyr_8c_a5dbf303fd2c465b1e724a247623fdbd2}{Cmd\+Line\+Handler()}.
+\item B\+C\+Z\+M\+Q\+O\+P\+T\+E\+R\+R\+OR indicates an error setting the options of a Z\+MQ socket.
+\item B\+C\+M\+O\+D\+L\+I\+S\+T\+E\+R\+R\+OR indicates an error in Populate\+Modules().
+\item B\+C\+Z\+M\+Q\+B\+I\+N\+D\+E\+R\+R\+OR indicates an error binding the Z\+MQ R\+EP socket. 
+\end{DoxyItemize}
+\end{DoxyReturn}

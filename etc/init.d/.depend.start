@@ -1,6 +1,16 @@
-TARGETS = openbsd-inetd ssh roc roc_uart rsync dbus winbind roc_led bluetooth cron rc.local rmnologin
+TARGETS = rsyslog hostapd nmbd samba-ad-dc killprocs motd bootlogs openbsd-inetd roc dbus smbd roc_led roc_uart winbind single ssh rsync bluetooth cron rc.local rmnologin
 INTERACTIVE =
-bluetooth: dbus
-cron: winbind
-rc.local: openbsd-inetd ssh roc roc_uart rsync dbus bluetooth cron winbind roc_led
-rmnologin: openbsd-inetd ssh roc roc_uart rsync dbus bluetooth cron winbind roc_led
+openbsd-inetd: rsyslog
+roc: rsyslog
+dbus: rsyslog
+smbd: nmbd
+roc_led: rsyslog
+roc_uart: rsyslog
+winbind: rsyslog
+single: killprocs motd bootlogs
+ssh: rsyslog
+rsync: rsyslog
+bluetooth: rsyslog dbus
+cron: rsyslog winbind
+rc.local: openbsd-inetd rsyslog roc bluetooth dbus hostapd smbd roc_led nmbd roc_uart samba-ad-dc winbind motd bootlogs cron ssh rsync
+rmnologin: openbsd-inetd rsyslog roc bluetooth dbus hostapd smbd roc_led nmbd roc_uart samba-ad-dc winbind motd bootlogs cron ssh rsync
