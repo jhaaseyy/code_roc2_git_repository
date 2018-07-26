@@ -60,8 +60,8 @@ $ git add -A //This adds all the changes
 $ git commit -m "comments here" //This commits the changes with comment
 $ git push --set-upstream origin roc2.2_code_20180722_026 //This pushes the commit onto the repo
 ```
-7. On Github, do a pull request and comment your changes
-8. An authorized collaborator or admin will review the changes and merge the branch into the main branch
+8. On Github, do a pull request and comment your changes
+9. An authorized collaborator or admin will review the changes and merge the branch into the main branch
 
 ### ROC Version and Branch Control
 1. Each version of the code will have its own branch and shall be named with the convention: roc2.x_code_yyyymmdd_vw. eg:roc2.2_code_20180711. Default branch should always be the latest version.
