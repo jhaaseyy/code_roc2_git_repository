@@ -7,7 +7,7 @@
 #ifndef __ROC__
 #define __ROC__
 
-#define SWDate					"20180509,2321"		///< Build date and time
+#define SWDate					"20180513,0027"		///< Build date and time
 #define SWVersion				"024"				///< Software version number
 
 // Definitions
@@ -114,7 +114,8 @@ int CloseLogFile(void);
 int NewFile(void);
 int LogData(FILE *fp, char *data, int n);
 int CopyFile(char *name);
-int SendGpsCmd(char *cmdstr);
+int SendGpsCmd(char *cmdstr, int timeout);
+int GetGpsReply(char *replybuf, int timeout);
 
 #endif  //  __ROC__
 
