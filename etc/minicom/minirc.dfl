@@ -1,3 +1,3 @@
 # Machine-generated file - use "minicom -s" to change parameters.
-pu port             /dev/ttyAPP2
-pu rtscts           No 
+pu port             /dev/ttyAPP4
+pu rtscts           No

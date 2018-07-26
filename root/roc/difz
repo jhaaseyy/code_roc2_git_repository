@@ -1,0 +1,66 @@
+49c49
+< 	time_t nextImr=0, nextS=0;
+---
+> 	time_t nextImr=0, nextS=0, safeTimeout;
+119c119
+< 			case LP:		// Low power mode. Put GPS in standby.
+---
+> 			case LP:		// Low power mode. Do nothing for now.
+352,353c352
+< 	
+< /*	loc=strstr(payload,"!!");								// search for !! that separates filename from data
+---
+> 	loc=strstr(payload,"!!");								// search for !! that separates filename from data
+362,370c361
+< 	fclose(f); */
+< 	
+< 	SendMsg(TCAck, "", 0);
+< 	
+< 	if(memmem(payload, len, "reboot", strlen("reboot")))
+< 	{
+< 		system("reboot now");
+< 	}
+< 	
+---
+> 	fclose(f);
+372c363
+< //	free(filename);
+---
+> 	free(filename);
+438,439d428
+< 	safeTimeout = time(NULL) + 7200;	// Enter Safe mode if we don't hear from Zephyr in 2 hours
+< 	clock_gettime(CLOCK_REALTIME, &nextMsgTime);	// OK to send msg at any time
+585c574
+< 	const char *str;
+---
+> 	char *str;
+902c891
+< int verify_bits(const char *bits)
+---
+> int verify_bits(char *bits)
+904c893,894
+< 	if(((bits[0]=='7') || (bits[0]=='8')) && ((toupper(bits[1])=='N') || (toupper(bits[1])=='O') || (toupper(bits[1])=='E')) && ((bits[2]=='1') || (bits[2]=='2')))
+---
+> 	bits[1]=toupper(bits[1]);
+> 	if(((bits[0]=='7') || (bits[0]=='8')) && ((bits[1]=='N') || (bits[1]=='O') || (bits[1]=='E')) && ((bits[2]=='1') || (bits[2]=='2')))
+911c901
+< int verify_flow(const char *bits)
+---
+> int verify_flow(char *bits)
+913c903,904
+< 	if((toupper(bits[0])=='N') || (toupper(bits[0])=='H') || (toupper(bits[0])=='S'))
+---
+> 	bits[0]=toupper(bits[0]);
+> 	if((bits[0]=='N') || (bits[0]=='H') || (bits[0]=='S'))
+1226d1216
+< 	struct timespec curTime;
+1228,1233d1217
+< 	clock_gettime(CLOCK_REALTIME, &curTime);
+< 	while((curTime.tv_sec < nextMsgTime.tv_sec) && 	(curTime.tv_nsec < nextMsgTime.tv_nsec))	// Wait until it's ok to send next msg
+< 	{
+< 		clock_gettime(CLOCK_REALTIME, &curTime);
+< 		usleep(50000);		// sleep for 50ms
+< 	}
+1289,1290d1272
+< 	clock_gettime(CLOCK_REALTIME, &nextMsgTime);	// set earliest time for sending
+< 	nextMsgTime.tv_sec += 1;						// next message (1 sec from now)

@@ -50,3 +50,4 @@ ssh:!::
 bluetooth:!::
 telnetd:!::
 sambashare:!::
+winbindd_priv:!::

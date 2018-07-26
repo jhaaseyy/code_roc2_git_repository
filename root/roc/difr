@@ -1,0 +1,27 @@
+352c352
+< 	const char *str;
+---
+> 	char *str;
+671,672c671
+< 	char *cmdstr=NULL, *confstr, *configfile;
+< 	const char *str;
+---
+> 	char *cmdstr=NULL, *confstr, *str, *configfile;
+788c787
+< int verify_bits(const char *bits)
+---
+> int verify_bits(char *bits)
+790c789,790
+< 	if(((bits[0]=='7') || (bits[0]=='8')) && ((toupper(bits[1])=='N') || (toupper(bits[1])=='O') || (toupper(bits[1])=='E')) && ((bits[2]=='1') || (bits[2]=='2')))
+---
+> 	bits[1]=toupper(bits[1]);
+> 	if(((bits[0]=='7') || (bits[0]=='8')) && ((bits[1]=='N') || (bits[1]=='O') || (bits[1]=='E')) && ((bits[2]=='1') || (bits[2]=='2')))
+797c797
+< int verify_flow(const char *bits)
+---
+> int verify_flow(char *bits)
+799c799,800
+< 	if((toupper(bits[0])=='N') || (toupper(bits[0])=='H') || (toupper(bits[0])=='S'))
+---
+> 	bits[0]=toupper(bits[0]);
+> 	if((bits[0]=='N') || (bits[0]=='H') || (bits[0]=='S'))
