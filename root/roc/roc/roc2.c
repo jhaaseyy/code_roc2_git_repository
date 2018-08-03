@@ -209,7 +209,7 @@ int main (int argc, char *argv[])
 
 
 
-/// \brief Performs module initialization
+/// \brief Performs module initialization for serial data logging
 ///
 /// Calls LoadConfigFileSettings() to load the configuration file settings for this module and calls
 /// CmdLineHandler() to handle any command line options. Finally configures a ZMQ REP

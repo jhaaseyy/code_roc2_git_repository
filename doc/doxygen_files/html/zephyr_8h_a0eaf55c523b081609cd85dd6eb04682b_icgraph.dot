@@ -1,0 +1,18 @@
+digraph "CreateDayDirectory"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node41 [label="CreateDayDirectory",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node41 -> Node42 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node42 [label="OpenLogFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$zephyr_8h.html#af8b73dc85a9b8da6978eac659ec8531b"];
+  Node42 -> Node43 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node43 [label="RocInit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$roc2_8h.html#adaf639dd3b74bbc423f3e475d724f5bd",tooltip="Performs module initialization. "];
+  Node43 -> Node44 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node44 [label="main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$roc2_8c.html#a0ddf1224851353fc92bfbff6f499fa97",tooltip="Main function. "];
+  Node42 -> Node45 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node45 [label="NewFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$zephyr_8h.html#a5366f78d45883b7ad5934d6910efa6c5"];
+  Node45 -> Node44 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node41 -> Node43 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

@@ -1,0 +1,15 @@
+digraph "OpenLogFile"
+{
+ // INTERACTIVE_SVG=YES
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node80 [label="OpenLogFile",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node80 -> Node81 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node81 [label="NewFile",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$zephyr_8h.html#a5366f78d45883b7ad5934d6910efa6c5"];
+  Node81 -> Node82 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node82 [label="main",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$roc2_8c.html#a0ddf1224851353fc92bfbff6f499fa97",tooltip="Main function. "];
+  Node80 -> Node83 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node83 [label="RocInit",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$roc2_8h.html#adaf639dd3b74bbc423f3e475d724f5bd",tooltip="Performs module initialization. "];
+  Node83 -> Node82 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}
