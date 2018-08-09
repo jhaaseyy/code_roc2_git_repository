@@ -4,7 +4,8 @@ Strateole2 is a NSF funded project that collects GPS data aboard a weather ballo
 
 ## Getting Started
 
-### First Time Git Users: Configure your computer for GIT
+### First Time Git Users: Configure your computer for GIT 
+(This is primarily for Jennifer to manage the repository on the lab computers)
 1. Open Terminal and Install Git
 ```
 $ sudo apt-get install git
@@ -17,10 +18,12 @@ $ git config --global user.email "user@gmail.com"
 3. Head to the file directory you want the Git files to be downloaded to
 ```
 $ cd /directory/folder
+example:
+$ cd ~/Dropbox/work/strateole2_private/docs_system/roc_software_design/code_roc2_git/
 ```
 4. Clone the Github Repository into the folder
 ```
-$ git clone https://github.com/jhaaseyy/code_roc2_git_repository.git
+$ git clone https://github.com/haaseresearch/code_roc2_git.git
 ```
 5. Now you have a complete copy of the ROC2 repository on your local machine. You may list all the items.
 ```
